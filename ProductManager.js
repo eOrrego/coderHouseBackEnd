@@ -55,3 +55,51 @@ class ProductManager {
         }
     }
 }
+
+const productManager = new ProductManager('./test2.json');
+
+const product1 = {
+    title: 'Producto 1',
+    description: 'Descripción del producto 1',
+    price: 10.99,
+    thumbnail: '/path/to/image1.png',
+    code: 'PRD001',
+    stock: 100,
+};
+
+const product2 = {
+    title: 'Producto 2',
+    description: 'Descripción del producto 2',
+    price: 5.99,
+    thumbnail: '/path/to/image2.png',
+    code: 'PRD002',
+    stock: 50,
+};
+
+// Agregar productos
+productManager.addProduct(product1);
+productManager.addProduct(product2);
+
+// Obtener todos los productos
+console.log(productManager.getProducts());
+
+// Obtener un producto por id
+const productById = productManager.getProductById(1);
+console.log(productById);
+
+// Actualizar un producto
+const updatedProduct = {
+    title: 'Producto 1 modificado',
+    description: 'Nueva descripción del producto 1',
+    price: 15.99,
+    thumbnail: '/path/to/image1_modified.png',
+    code: 'PRD001',
+    stock: 200,
+};
+productManager.updateProduct(1, updatedProduct);
+
+// Eliminar un producto
+productManager.deleteProduct(2);
+
+// Obtener todos los productos actualizados
+console.log(productManager.getProducts());
