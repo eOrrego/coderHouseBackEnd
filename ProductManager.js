@@ -30,7 +30,11 @@ class ProductManager {
 
     async getProductById(id) {
         const products = await this.getProducts();
-        return products.find((product) => product.id === id);
+        const product = products.find((product) => product.id === id);
+        if (!product) {
+            return null;
+        }
+        return product;
     }
 
     async updateProduct(id, update) {
@@ -61,48 +65,70 @@ class ProductManager {
     }
 }
 
+//Path: productos.json e instancia el objeto
+const productManager = new ProductManager('./productos.json');
 
-const productManager = new ProductManager('./test1.json');
+//Funcion para probar el CRUD
+async function prueba() {
 
-async function test() {
-    // Agregar un producto
-    const newProduct = {
-        title: 'Nuevo producto',
-        description: 'Descripción del nuevo producto',
-        price: 10.99,
-        thumbnail: 'https://www.example.com/image.png',
-        code: 'ABC123',
-        stock: 50,
+    //Agregar un producto
+    const product1 = {
+        title: 'Producto1',
+        description: 'Descripción del producto 1',
+        price: 10,
+        thumbnail: '/image1.png',
+        code: 'A10',
+        stock: 10,
     };
-    const addedProduct = await productManager.addProduct(newProduct);
-    console.log('Producto agregado:', addedProduct);
+    const product2 = {
+        title: 'Producto2',
+        description: 'Descripción del producto 2',
+        price: 20,
+        thumbnail: '/image2.png',
+        code: 'A20',
+        stock: 20,
+    };
+
+    await productManager.addProduct(product1);
+    await productManager.addProduct(product2);
 
     // Consultar todos los productos
-    const allProducts = await productManager.getProducts();
-    console.log('Todos los productos:', allProducts);
+    console.log('Todos los productos:\n', await productManager.getProducts());
 
     // Consultar un producto por id
-    const productId = addedProduct.id;
-    const productById = await productManager.getProductById(productId);
-    console.log('Producto por id:', productById);
+    const productById = await productManager.getProductById(1);
+    if (!productById) {
+        console.log('No existe un producto con ese id');
+    } else {
+        console.log('Producto por id:\n', productById);
+    }
 
-    // Actualizar un producto
-    //const updatedProduct = {
-    //    title: 'Producto actualizado',
-    //    description: 'Descripción actualizada del producto',
-    //    price: 15.99,
-    //};
-    //const productUpdated = await productManager.updateProduct(productId, updatedProduct);
-    //console.log('Producto actualizado:', productUpdated);
+    //Actualizar un producto
+    const updatedProduct = {
+        title: 'Producto actualizado',
+        description: 'Descripción actualizada del producto',
+        price: 100,
+    };
+    const productUpdated = await productManager.updateProduct(1, updatedProduct);
+    if (!productUpdated) {
+        console.log('No existe un producto con ese id');
+    } else {
+        console.log('Producto actualizado:\n', productUpdated);
+    }
 
     // Eliminar un producto
     const deletedProductId = await productManager.deleteProduct(2);
-    console.log('Producto eliminado:', deletedProductId);
+    if (!deletedProductId) {
+        console.log('No existe un producto con ese id');
+    } else {
+        console.log('ID Producto eliminado:', deletedProductId);
+    }
+
 
     // Consultar todos los productos después de eliminar uno
-    const remainingProducts = await productManager.getProducts();
-    console.log('Productos restantes:', remainingProducts);
+    console.log('Productos restantes:\n', await productManager.getProducts());
 }
 
-test();
+//Ejecuto la funcion
+prueba();
 
