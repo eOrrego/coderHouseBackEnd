@@ -1,6 +1,7 @@
 import express from 'express';
 const app = express();
 
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 import ProductManager from './ProductManager.js';
@@ -29,9 +30,9 @@ app.get('/products', async (req, res) => {
 // Endpoint para obtener un producto por id
 app.get('/products/:pid', async (req, res) => {
     try {
-        const productId = req.params.pid;
+        const {pid} = req.params;
 
-        const product = await productManager.getProductById(productId);
+        const product = await productManager.getProductById(parseInt(pid));
 
         if (product) {
             res.json(product);
