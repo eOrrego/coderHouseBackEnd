@@ -3,6 +3,9 @@ import express from 'express';
 // importar el router de productos (products.router.js) y asignarlo a la variable productsRouter
 import productsRouter from './routes/products.router.js';
 
+// importar el router de carritos (carts.router.js) y asignarlo a la variable cartsRouter
+import cartsRouter from './routes/carts.router.js';
+
 // importar el __dirname para poder usarlo en app.js
 import {__dirname} from './utils/dirname.js';
 
@@ -19,6 +22,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/public',express.static(__dirname));
 //las rutas para los endpoints de la API de productos (REST) se definen en el router de productos (products.router.js) y se asignan a la ruta /api/products
 app.use('/api/products', productsRouter);
+
+//las rutas para los endpoints de la API de carritos (REST) se definen en el router de carritos (carts.router.js) y se asignan a la ruta /api/carts
+app.use('/api/carts', cartsRouter);
 
 
 // escuchar en el puerto 8080 y mostrar un mensaje en la consola cuando el servidor esté inicializado (listening)
