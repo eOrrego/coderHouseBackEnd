@@ -58,9 +58,19 @@ class ProductManager {
         const products = await this.getProducts();
         const index = products.findIndex((product) => product.id === id);
         if (index === -1) {
-            return null;
+            return index;
         }
-        const updatedProduct = { ...products[index], ...update, id };
+        const updatedProduct = {
+            title: update.title || products[index].title,
+            description: update.description || products[index].description,
+            price: update.price || products[index].price,
+            thumbnail: update.thumbnail || products[index].thumbnail,
+            code: update.code || products[index].code,
+            stock: update.stock || products[index].stock,
+            category: update.category || products[index].category,
+            status: update.status || products[index].status,
+            id: id
+        };
         products.splice(index, 1, updatedProduct);
         await this.#saveProducts(products);
         return updatedProduct;
@@ -70,7 +80,7 @@ class ProductManager {
         const products = await this.getProducts();
         const index = products.findIndex((product) => product.id === id);
         if (index === -1) {
-            return null;
+            return index;
         }
         products.splice(index, 1);
         await this.#saveProducts(products);

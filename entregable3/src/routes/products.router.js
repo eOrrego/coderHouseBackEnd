@@ -56,10 +56,9 @@ router.post('/', async (req, res) => {
         if (b === -1) {
             res.status(400).json({ error: 'El código del producto ya existe' });
             return;
-        } else {
-            res.status(201)
-                .json("Producto agregado");
         }
+        res.status(201)
+            .json("Producto agregado");
     } catch (err) {
         console.error(err);
         res.status(500)
@@ -76,6 +75,10 @@ router.put('/:pid', async (req, res) => {
             parseInt(pid),
             product
         );
+        if (updatedProduct === -1) {
+            res.status(404).json({ error: 'Producto no encontrado' });
+            return;
+        }
         res.status(201)
             .json("Producto actualizado");
     } catch (err) {
@@ -90,6 +93,10 @@ router.delete('/:pid', async (req, res) => {
     try {
         const { pid } = req.params;
         const deletedProduct = await productManager.deleteProduct(parseInt(pid));
+        if (deletedProduct === -1) {
+            res.status(404).json({ error: 'Producto no encontrado' });
+            return;
+        }
         res.status(201)
             .json("Producto borrado");
     } catch (err) {
