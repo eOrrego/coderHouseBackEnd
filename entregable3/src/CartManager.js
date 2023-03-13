@@ -1,13 +1,18 @@
 import fs from 'fs';
+
+// importamos el ProductManager para poder usar sus métodos en este archivo (addProductToCart)
 import ProductManager from './ProductManager.js';
 
+// creamos una instancia de ProductManager para poder usar sus métodos en este archivo (addProductToCart)
 const productManager = new ProductManager('./productos.json');
 
+// creamos la clase CartManager para poder usar sus métodos (addCart, getCartById, addProductToCart)
 class CartManager {
     constructor(path) {
         this.path = path;
     }
 
+    // método para agregar un carrito vacío a la lista de carritos (carts) del archivo JSON (carrito.json)
     async addCart(cart) {
         const carts = await this.#getCarts();
 
@@ -27,6 +32,7 @@ class CartManager {
         return newCart;
     }
 
+    // método para obtener un carrito por su id (cid) de la lista de carritos (carts) del archivo JSON (carrito.json)
     async getCartById(id) {
         const carts = await this.#getCarts();
         const cart = carts.find((cart) => cart.id === id);
@@ -36,6 +42,8 @@ class CartManager {
         return cart;
     }
 
+    // método para agregar un producto (pid) a un carrito (cid) de la lista de carritos (carts) del archivo JSON (carrito.json)
+    // este método usa el método getProductById del ProductManager para obtener el producto por su id (pid)
     async addProductToCart(cid, pid) {
         const carts = await this.#getCarts();
         const cart = carts.find((cart) => cart.id === cid);
@@ -58,7 +66,7 @@ class CartManager {
         return cart;
     }
 
-
+    // método para obtener la lista de carritos (carts) del archivo JSON (carrito.json)
     async #getCarts() {
         try {
             const carts = await fs.promises.readFile(this.path, 'utf-8');
@@ -72,6 +80,7 @@ class CartManager {
         }
     }
 
+    // método para guardar la lista de carritos (carts) en el archivo JSON (carrito.json)
     async #saveCarts(carts) {
         await fs.promises.writeFile(this.path, JSON.stringify(carts));
     }
