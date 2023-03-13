@@ -1,96 +1,27 @@
 import express from 'express';
-import ProductManager from './ProductManager.js';
 
+// importar el router de productos (products.router.js) y asignarlo a la variable productsRouter
+import productsRouter from './routes/products.router.js';
+
+// importar el __dirname para poder usarlo en app.js
+import {__dirname} from './utils/dirname.js';
+
+//crear una aplicación express
 const app = express();
+
+//middlewares para analizar el cuerpo de la solicitud
 app.use(express.json());
+
+//parse application/x-www-form-urlencoded (para formularios HTML)
 app.use(express.urlencoded({ extended: true }));
 
-const productManager = new ProductManager('./productos.json');
+// los archivos estáticos (HTML, CSS, JS) se sirven desde la carpeta pública (public)
+app.use('/public',express.static(__dirname));
+//las rutas para los endpoints de la API de productos (REST) se definen en el router de productos (products.router.js) y se asignan a la ruta /api/products
+app.use('/api/products', productsRouter);
 
-// Endpoint para obtener todos los productos
-app.get('/products', async (req, res) => {
-    try {
-        const limit = req.query.limit;
 
-        const products = await productManager.getProducts();
-
-        if (limit) {
-            const limitedProducts = products.slice(0, limit);
-            res.json(limitedProducts);
-        } else {
-            res.json(products);
-        }
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Error al obtener los productos' });
-    }
-});
-
-// Endpoint para obtener un producto por id
-app.get('/products/:pid', async (req, res) => {
-    try {
-        const { pid } = req.params;
-
-        const product = await productManager.getProductById(parseInt(pid));
-
-        if (product) {
-            res.json(product);
-        } else {
-            res.status(404).json({ error: 'Producto no encontrado' });
-        }
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Error al obtener el producto' });
-    }
-});
-
-// Endpoint para agregar un producto
-app.post('/products', async (req, res) => {
-    try {
-        const product = req.body;
-        await productManager.addProduct(product);
-        res.status(201)
-            .json("Producto agregado");
-    } catch (err) {
-        console.error(err);
-        res.status(500)
-            .json({ error: 'Error al agregar el producto' });
-    }
-});
-
-// Endpoint para actualizar un producto
-app.put('/products/:pid', async (req, res) => {
-    try {
-        const { pid } = req.params;
-        const product = req.body;
-        const updatedProduct = await productManager.updateProduct(
-            parseInt(pid),
-            product
-        );
-        res.status(201)
-            .json("Producto actualizado");
-    } catch (err) {
-        console.error(err);
-        res.status(500)
-            .json({ error: 'Error al actualizar el producto' });
-    }
-});
-
-// Endpoint para borrar un producto
-app.delete('/products/:pid', async (req, res) => {
-    try {
-        const { pid } = req.params;
-        const deletedProduct = await productManager.deleteProduct(parseInt(pid));
-        res.status(201)
-            .json("Producto borrado");
-    } catch (err) {
-        console.error(err);
-        res.status(500)
-            .json({ error: 'Error al borrar el producto' });
-    }
-});
-
-// listen on port 8080
+// escuchar en el puerto 8080 y mostrar un mensaje en la consola cuando el servidor esté inicializado (listening)
 app.listen(8080, () => {
     console.log('Servidor iniciado en el puerto 8080');
 });

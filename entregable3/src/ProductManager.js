@@ -8,9 +8,25 @@ class ProductManager {
 
     async addProduct(product) {
         const products = await this.getProducts();
+
+        if (products.some((p) => p.code === product.code)) {
+            console.log('Error: El código del producto ya existe');
+            return -1;
+        }
+
         const lastProduct = products[products.length - 1];
         const newId = lastProduct ? lastProduct.id + 1 : 1;
-        const newProduct = { ...product, id: newId };
+        const newProduct = {
+            title: product.title,
+            description: product.description,
+            price: product.price,
+            thumbnail: product.thumbnail || [],
+            code: product.code,
+            stock: product.stock,
+            category: product.category,
+            status: true,
+            id: newId
+        };
         products.push(newProduct);
         await this.#saveProducts(products);
         return newProduct;
