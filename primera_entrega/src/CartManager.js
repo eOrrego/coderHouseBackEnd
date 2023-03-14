@@ -13,18 +13,13 @@ class CartManager {
     }
 
     // método para agregar un carrito vacío a la lista de carritos (carts) del archivo JSON (carrito.json)
-    async addCart(cart) {
+    async addCart() {
         const carts = await this.#getCarts();
 
         const lastCart = carts[carts.length - 1];
         const newId = lastCart ? lastCart.id + 1 : 1;
         const newCart = {
-            products: [
-                // {
-                //     pid: cart.products[0].pid,
-                //     quantity: cart.products[0].quantity || 1
-                // }
-            ],
+            products: [],
             id: newId
         };
         carts.push(newCart);

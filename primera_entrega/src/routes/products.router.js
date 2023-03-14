@@ -16,13 +16,13 @@ router.get('/', async (req, res) => {
 
         if (limit) {
             const limitedProducts = products.slice(0, limit);
-            res.json(limitedProducts);
+            res.status(200).send({ status: "success", payload: limitedProducts });
         } else {
-            res.json(products);
+            res.status(200).send({ status: "success", payload: products });
         }
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: 'Error al obtener los productos' });
+        res.status(500).send({ status: "error", error: 'Error al obtener los productos' });
     }
 });
 
@@ -34,13 +34,13 @@ router.get('/:pid', async (req, res) => {
         const product = await productManager.getProductById(parseInt(pid));
 
         if (product) {
-            res.json(product);
+            res.status(200).send({ status: "success", payload: product });
         } else {
-            res.status(404).json({ error: 'Producto no encontrado' });
+            res.status(404).send({ status: "error", error: 'Producto no encontrado' });
         }
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: 'Error al obtener el producto' });
+        res.status(500).send({ status: "error", error: 'Error al obtener el producto' });
     }
 });
 
@@ -49,20 +49,19 @@ router.post('/', async (req, res) => {
     try {
         const product = req.body;
         if (!product.title || !product.description || !product.price || !product.code || !product.stock || !product.category) {
-            res.status(400).json({ error: 'Todos los campos son obligatorios' });
+            res.status(400).send({ status: "error", error: 'Todos los campos son obligatorios' });
             return;
         }
         const b = await productManager.addProduct(product);
         if (b === -1) {
-            res.status(400).json({ error: 'El código del producto ya existe' });
+            res.status(400).send({ status: "error", error: 'El código del producto ya existe' });
             return;
         }
-        res.status(201)
-            .json("Producto agregado");
+        res.status(201).send({ status: "success", payload: b });
     } catch (err) {
         console.error(err);
         res.status(500)
-            .json({ error: 'Error al agregar el producto' });
+            .send({ status: "error", error: 'Error al agregar el producto' });
     }
 });
 
@@ -76,15 +75,14 @@ router.put('/:pid', async (req, res) => {
             product
         );
         if (updatedProduct === -1) {
-            res.status(404).json({ error: 'Producto no encontrado' });
+            res.status(404).send({ status: "error", error: 'Producto no encontrado' });
             return;
         }
-        res.status(201)
-            .json("Producto actualizado");
+        res.status(201).send({ status: "success", payload: updatedProduct });
     } catch (err) {
         console.error(err);
         res.status(500)
-            .json({ error: 'Error al actualizar el producto' });
+            .send({ status: "error", error: 'Error al actualizar el producto' });
     }
 });
 
@@ -94,15 +92,14 @@ router.delete('/:pid', async (req, res) => {
         const { pid } = req.params;
         const deletedProduct = await productManager.deleteProduct(parseInt(pid));
         if (deletedProduct === -1) {
-            res.status(404).json({ error: 'Producto no encontrado' });
+            res.status(404).send({ status: "error", error: 'Producto no encontrado' });
             return;
         }
-        res.status(201)
-            .json("Producto borrado");
+        res.status(201).send({ status: "success", payload: deletedProduct });
     } catch (err) {
         console.error(err);
         res.status(500)
-            .json({ error: 'Error al borrar el producto' });
+            .send({ status: "error", error: 'Error al borrar el producto' });
     }
 });
 
