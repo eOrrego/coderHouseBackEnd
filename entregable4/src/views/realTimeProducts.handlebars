@@ -1,0 +1,41 @@
+<h2>Lista de productos (Real Time)</h2>
+
+<table id="product-table" border="1">
+  <thead>
+    <tr>
+      <th>Proudcto</th>
+      <th>Precio</th>
+      <th>Eliminar</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each products}}
+    <tr>
+      <td>{{title}}</td>
+      <td>${{price}}</td>
+      <td><button class="delete-product" data-id="{{id}}">Borrar</button></td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<br />
+<hr /><br />
+
+<h2>Agregar Producto</h2>
+
+<form id="create-product-form">
+  <label for="product-title">Nombre</label>
+  <br />
+  <input type="text" id="product-title" name="title" />
+  <br />
+  <label for="product-price">Precio</label>
+  <br />
+  <input type="number" id="product-price" name="price" />
+  <br />
+  <br />
+  <button type="submit">Agregar</button>
+</form>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>
