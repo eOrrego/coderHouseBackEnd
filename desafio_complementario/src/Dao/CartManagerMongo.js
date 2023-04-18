@@ -34,7 +34,7 @@ export default class CartManager {
                 return null;
             }
 
-            const product = cart.products.find((product) => product.pid === productId);
+            const product = cart.products.find((product) => product.pid.toString() === productId);
             if (!product) {
                 cart.products.push({ pid: productId, quantity: 1 });
                 await cart.save();

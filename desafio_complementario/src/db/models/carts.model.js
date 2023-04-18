@@ -6,6 +6,13 @@ const cartsSchema = new mongoose.Schema({
         required: true,
         default: []
     },
+    // products: {
+    //     type:
+    //         [{
+    //             pid: { type: mongoose.Schema.Types.ObjectId, ref: 'Products' },
+    //             quantity: { type: Number },
+    //         }],
+    // },
     timestamp: {
         type: Date,
         default: Date.now
@@ -13,3 +20,6 @@ const cartsSchema = new mongoose.Schema({
 });
 
 export const cartsModel = mongoose.model('Carts', cartsSchema);
+
+
+// products: [{ type: Schema.Types.ObjectId, ref: 'products' }],
