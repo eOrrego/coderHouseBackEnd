@@ -1,6 +1,6 @@
 import { Router } from "express";
 // import ProductManager from "../Dao/ProductManager.js";
-import ProductManager from "../Dao/ProductManagerMongo.js";
+import ProductManager from "../Dao/ManagerMongo/ProductManagerMongo.js";
 
 // importamos el manejador de productos para poder usarlo en los endpoints de la API de productos (REST)
 const router = Router();
@@ -11,16 +11,28 @@ const productManager = new ProductManager('./productos.json');
 // Endpoint para obtener todos los productos (o los primeros N productos si se pasa el parámetro limit en la query string)
 router.get('/', async (req, res) => {
     try {
-        const limit = req.query.limit;
+        const { limit, page, sort, query } = req.query;
 
-        const products = await productManager.getProducts();
+        const products = await productManager.getProducts(limit, page, sort, query);
 
-        if (limit) {
-            const limitedProducts = products.slice(0, limit);
-            res.status(200).send({ status: "success", payload: limitedProducts });
-        } else {
-            res.status(200).send({ status: "success", payload: products });
+        products.docs = products.docs.map(product => {
+            const { _id, title, description, price, code, stock, category, thumbnail } = product;
+            return { id: _id, title, description, price, code, stock, category, thumbnail };
+        });
+
+        const info = {
+            totalPages: products.totalPages,
+            prevPage: products.prevPage,
+            nextPage: products.nextPage,
+            page: products.page,
+            hasPrevPage: products.hasPrevPage,
+            hasNextPage: products.hasNextPage,
+            prevLink: products.hasPrevPage ? `http://localhost:8080/api/products?page=${products.prevPage}` : null,
+            nextLink: products.hasNextPage ? `http://localhost:8080/api/products?page=${products.nextPage}` : null,
         }
+
+        res.status(200).send({ status: "success", payload: products.docs, info });
+
     } catch (err) {
         console.error(err);
         res.status(500).send({ status: "error", error: 'Error al obtener los productos' });

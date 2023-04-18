@@ -56,6 +56,7 @@ app.set("port", process.env.PORT || 8080);
 // escuchar en el puerto 8080 y mostrar un mensaje en la consola cuando el servidor esté inicializado (listening)
 const httpServer = app.listen(app.get("port"), () => {
     console.log('Servidor iniciado en el puerto: ', app.get("port"));
+    console.log(`http://localhost:${app.get("port")}`);
 });
 
 
