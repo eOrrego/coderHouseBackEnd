@@ -18,4 +18,10 @@ const cartsSchema = new mongoose.Schema({
     }
 });
 
+//no pude hacer que funcione el populate con el find pre
+// cartsSchema.pre('find', function (next) {;
+//     this.populate('products.pid');
+//     next();
+// });
+
 export const cartsModel = mongoose.model('Carts', cartsSchema);
