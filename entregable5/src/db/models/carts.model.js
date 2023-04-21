@@ -18,10 +18,10 @@ const cartsSchema = new mongoose.Schema({
     }
 });
 
-//no pude hacer que funcione el populate con el find pre
-// cartsSchema.pre('find', function (next) {;
-//     this.populate('products.pid');
-//     next();
-// });
+// no es necesario el next() porque no hay más middlewares en la cadena de middlewares de este modelo
+cartsSchema.pre('findOne', function (next) {;
+    this.populate('products.pid');
+    next();
+});
 
 export const cartsModel = mongoose.model('Carts', cartsSchema);
