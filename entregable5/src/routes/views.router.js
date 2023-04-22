@@ -3,10 +3,11 @@ import ProductManager from "../Dao/ManagerMongo/ProductManagerMongo.js";
 import CartManager from '../Dao/ManagerMongo/CartManagerMongo.js';
 import { cartsModel } from '../db/models/carts.model.js';
 import { productsModel } from '../db/models/products.model.js';
+import { auth, isLogged } from '../middlewares/auth.middleware.js';
 
 const router = Router()
 
-router.get('/', (req, res) => {
+router.get('/chat', (req, res) => {
     res.render('chat')
 })
 
@@ -56,6 +57,31 @@ router.get('/carts/:cid', async (req, res) => {
     const { products } = cart;
 
     res.render('cart', { products })
+})
+
+// Ruta registro de usuario
+router.get('/register', isLogged, (req, res) => {
+    res.render('register');
+})
+
+// Ruta login de usuario
+router.get('/login', isLogged, (req, res) => {
+    res.render('login');
+})
+
+// Ruta perfil de usuario
+router.get('/profile', auth, (req, res) => {
+    res.render('profile', { email: req.session.email });
+})
+
+// Ruta Error de registro
+router.get('/errorRegister', (req, res) => {
+    res.render('errorRegister');
+})
+
+// Ruta Error de login
+router.get('/errorLogin', (req, res) => {
+    res.render('errorLogin');
 })
 
 export default router
