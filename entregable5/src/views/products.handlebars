@@ -1,9 +1,13 @@
+<button onclick="location.href='/views/profile'">
+  Profile
+</button>
+
 {{#if isAdmin}}
-  <h1>(admin)</h1>
+<h1>(admin)</h1>
 {{/if}}
 
 {{#if role}}
-  <h1>(user)</h1>
+<h1>(user)</h1>
 {{/if}}
 
 <h2>
@@ -31,32 +35,32 @@
         </thead>
         <tbody>
           {{#each products.docs}}
-            <tr>
-              <td>{{title}}</td>
-              <td>{{description}}</td>
-              <td>{{price}}</td>
-              <td>{{stock}}</td>
-              <td>
-                <button>
-                  <a href="/views/products/{{_id}}">Ver producto</a>
-                </button>
-              </td>
-            </tr>
+          <tr>
+            <td>{{title}}</td>
+            <td>{{description}}</td>
+            <td>{{price}}</td>
+            <td>{{stock}}</td>
+            <td>
+              <button>
+                <a href="/views/products/{{_id}}">Ver producto</a>
+              </button>
+            </td>
+          </tr>
           {{/each}}
         </tbody>
       </table>
       {{! paginador }}
 
       {{#if products.hasPrevPage}}
-        <button>
-          <a href="/views/products/page/{{products.prevPage}}">Anterior</a>
-        </button>
+      <button>
+        <a href="/views/products/page/{{products.prevPage}}">Anterior</a>
+      </button>
       {{/if}}
 
       {{#if products.hasNextPage}}
-        <button>
-          <a href="/views/products/page/{{products.nextPage}}">Siguiente</a>
-        </button>
+      <button>
+        <a href="/views/products/page/{{products.nextPage}}">Siguiente</a>
+      </button>
       {{/if}}
 
     </div>
