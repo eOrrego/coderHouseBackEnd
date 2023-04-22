@@ -18,6 +18,9 @@ import handlebars from 'express-handlebars';
 // importar server de socket.io
 import { Server } from 'socket.io';
 
+// importar el router de usuarios (users.router.js) y asignarlo a la variable usersRouter
+import usersRouter from './routes/users.router.js';
+
 // importar el router de vistas (views.router.js) y asignarlo a la variable viewsRouter
 import viewsRouter from './routes/views.router.js';
 
@@ -87,7 +90,7 @@ app.set('view engine', 'handlebars');
 app.use(session({
     store: MongoStore.create({
         // nombre de la base de datos donde se guardarán las sesiones
-        mongoUrl: 'mongodb://localhost:27017/ecommerce',
+        mongoUrl: 'mongodb+srv://test:coderHouse@steveo.bxgkikt.mongodb.net/ecommerce?retryWrites=true&w=majority',
         //ttl: 60 * 60 * 24 * 7, // 1 semana
     }),
     // resave es false para que no se guarde la sesión en cada petición
@@ -97,17 +100,21 @@ app.use(session({
     // secret es una cadena de texto que se usa para firmar la cookie de sesión
     secret: 'secreto',
     // maxAge es el tiempo de vida de la cookie de sesión en milisegundos
-    cookie: {maxAge: 1000 * 60 * 60 * 24 * 7} // 1 semana
+    cookie: { maxAge: 1000 * 60 * 60 * 24 * 7 } // 1 semana
 }));
-
-// configurar el servidor para que use el router de vistas (views.router.js) y asignarlo a la ruta /views
-app.use('/views', viewsRouter)
 
 //las rutas para los endpoints de la API de productos (REST) se definen en el router de productos (products.router.js) y se asignan a la ruta /api/products
 app.use('/api/products', productsRouter);
 
 //las rutas para los endpoints de la API de carritos (REST) se definen en el router de carritos (carts.router.js) y se asignan a la ruta /api/carts
 app.use('/api/carts', cartsRouter);
+
+//Ruta de usuarios
+app.use('/users', usersRouter);
+
+// configurar el servidor para que use el router de vistas (views.router.js) y asignarlo a la ruta /views
+app.use('/views', viewsRouter)
+
 
 // port para el servidor (8080) o el puerto definido en las variables de entorno (process.env.PORT)
 app.set("port", process.env.PORT || 8080);
@@ -130,7 +137,7 @@ io.on('connection', (socket) => {
         console.log(`Usuario desconectado: ${socket.id}`)
     })
 
-    socket.on("message", async (data)=>{
+    socket.on("message", async (data) => {
 
         const newMessage = new messagesModel({
             user: data.user,
@@ -140,7 +147,7 @@ io.on('connection', (socket) => {
 
         socket.broadcast.emit("message", data)
     })
-    
+
     socket.on('usuarioNuevo', async (usuario) => {
         socket.broadcast.emit('broadcast', usuario)
 
