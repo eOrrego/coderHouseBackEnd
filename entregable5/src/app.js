@@ -115,6 +115,10 @@ app.use('/users', usersRouter);
 // configurar el servidor para que use el router de vistas (views.router.js) y asignarlo a la ruta /views
 app.use('/views', viewsRouter)
 
+// redirigir a /views/login cuando se acceda a la ruta /
+app.get('/', (req, res) => {
+    res.redirect('/views/login');
+});
 
 // port para el servidor (8080) o el puerto definido en las variables de entorno (process.env.PORT)
 app.set("port", process.env.PORT || 8080);

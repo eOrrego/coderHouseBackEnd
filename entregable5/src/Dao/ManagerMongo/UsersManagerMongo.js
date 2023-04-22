@@ -1,6 +1,6 @@
 import { usersModel } from "../../db/models/users.model.js";
 
-export class UsersManager {
+export default class UsersManager {
     async createUser(user) {
         const { email } = user;
         try {
@@ -31,4 +31,15 @@ export class UsersManager {
             throw new Error(error);
         }
     }
+
+    async getUserById(id) {
+        try {
+            const user = await usersModel.findById(id);
+            return user;
+        } catch (error) {
+            console.log(error);
+            throw new Error(error);
+        }
+    }
+
 }
