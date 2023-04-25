@@ -3,12 +3,6 @@ import express from 'express';
 // importar el archivo dbConfig.js para que se ejecute y se conecte a la base de datos
 import './db/dbConfig.js';
 
-// importar el router de productos (products.router.js) y asignarlo a la variable productsRouter
-import productsRouter from './routes/products.router.js';
-
-// importar el router de carritos (carts.router.js) y asignarlo a la variable cartsRouter
-import cartsRouter from './routes/carts.router.js';
-
 // importar el __dirname para poder usarlo en app.js
 import { __dirname } from './utils/dirname.js';
 
@@ -18,9 +12,7 @@ import handlebars from 'express-handlebars';
 // importar server de socket.io
 import { Server } from 'socket.io';
 
-// importar el router de usuarios (users.router.js) y asignarlo a la variable usersRouter
-import usersRouter from './routes/users.router.js';
-
+// importar la api de productos, carritos y usuarios.
 import apiRouter from './routes/api.router.js';
 
 // importar el router de vistas (views.router.js) y asignarlo a la variable viewsRouter
@@ -40,6 +32,12 @@ import FileStore from 'session-file-store';
 
 // importar connect-mongo para guardar las sesiones en la base de datos (en una colección) y asignarlo a la variable MongoStore (para usarlo como middleware)
 import MongoStore from 'connect-mongo';
+
+// importar passport para autenticación de usuarios
+import passport from 'passport';
+
+// importar estraegias de autenticación de usuarios
+import './passport/passportStrategies.js'
 
 //crear una aplicación express
 const app = express();
@@ -105,14 +103,10 @@ app.use(session({
     cookie: { maxAge: 1000 * 60 * 60 * 24 * 7 } // 1 semana
 }));
 
-// //las rutas para los endpoints de la API de productos (REST) se definen en el router de productos (products.router.js) y se asignan a la ruta /api/products
-// app.use('/api/products', productsRouter);
-
-// //las rutas para los endpoints de la API de carritos (REST) se definen en el router de carritos (carts.router.js) y se asignan a la ruta /api/carts
-// app.use('/api/carts', cartsRouter);
-
-// //Ruta de usuarios
-// app.use('/users', usersRouter);
+// passport para autenticación de usuarios
+app.use(passport.initialize());
+// para usar sesiones de usuario en el servidor (cookies) con passport
+app.use(passport.session());
 
 // configurar el servidor para que use el router de la API (api.router.js) y asignarlo a la ruta /api
 app.use('/api', apiRouter);
