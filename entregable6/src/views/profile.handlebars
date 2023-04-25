@@ -1,0 +1,29 @@
+<button onclick="location.href='/products'">
+  Store
+</button>
+
+{{#if isAdmin}}
+<h1>(admin)</h1>
+{{/if}}
+
+{{#if role}}
+<h1>(user)</h1>
+{{/if}}
+
+<h2>
+  Welcome
+  {{email}}
+</h2>
+
+<p>
+  {{first_name}}
+  {{last_name}}
+</p>
+
+<p>
+  {{age}}
+</p>
+
+<button onclick="location.href='/api/users/logout'">
+  Logout
+</button>
