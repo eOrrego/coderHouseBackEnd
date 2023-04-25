@@ -60,32 +60,6 @@ passport.use(
     )
 );
 
-// passport.use(
-//     'github',
-//     new GithubStrategy(
-//       {
-//         clientID: 'Iv1.ba8d845bcb2956e3',
-//         clientSecret: '16007547c83e7a643e09298a9c201c00df61f7a1',
-//         callbackURL: 'http://localhost:8080/users/github',
-//       },
-//       async (accessToken, refreshToken, profile, done) => {
-//         const user = await userModel.findOne({ email: profile._json.email })
-//         if (!user) {
-//           const newUser = {
-//             first_name: profile._json.name.split(' ')[0],
-//             last_name: profile._json.name.split(' ')[1] || ' ',
-//             email: profile._json.email,
-//             password: ' ',
-//           }
-//           const userDB = await userModel.create(newUser)
-//           done(null, userDB)
-//         } else {
-//           done(null, user)
-//         }
-//       }
-//     )
-//   )
-
 // serializar el usuario para almacenarlo en la sesión
 passport.serializeUser((user, done) => {
     done(null, user._id);
