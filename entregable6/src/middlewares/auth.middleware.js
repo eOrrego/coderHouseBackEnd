@@ -1,4 +1,5 @@
 export const auth = async (req, res, next) => {
+    console.log(req.session)
     try {
         if (req.session.logged) {
             next();
