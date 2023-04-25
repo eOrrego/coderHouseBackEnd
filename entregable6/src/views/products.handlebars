@@ -1,0 +1,68 @@
+<button onclick="location.href='/profile'">
+  Profile
+</button>
+
+{{#if isAdmin}}
+<h1>(admin)</h1>
+{{/if}}
+
+{{#if role}}
+<h1>(user)</h1>
+{{/if}}
+
+<h2>
+  Welcome
+  {{email}}
+</h2>
+
+<section class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="text-center">Productos en tiempo real</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each products.docs}}
+          <tr>
+            <td>{{title}}</td>
+            <td>{{description}}</td>
+            <td>{{price}}</td>
+            <td>{{stock}}</td>
+            <td>
+              <button>
+                <a href="/products/{{_id}}">Ver producto</a>
+              </button>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      {{! paginador }}
+
+      {{#if products.hasPrevPage}}
+      <button>
+        <a href="/products/page/{{products.prevPage}}">Anterior</a>
+      </button>
+      {{/if}}
+
+      {{#if products.hasNextPage}}
+      <button>
+        <a href="/products/page/{{products.nextPage}}">Siguiente</a>
+      </button>
+      {{/if}}
+
+    </div>
+  </div>
+</section>
