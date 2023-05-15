@@ -1,6 +1,7 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as GithubStrategy } from "passport-github2";
+import { ExtractJwt, Strategy as JWTStrategy } from "passport-jwt";
 import { usersModel } from "../db/models/users.model.js";
 import { hashPassword, comparePassword } from "../utils/bcrypt.js";
 
@@ -81,6 +82,42 @@ passport.use(
         }
     )
 );
+
+// Secret key
+const secret = "EOsecretkey";
+const { fromExtractors, fromAuthHeaderAsBearerToken } = ExtractJwt
+
+// configurar passport para usar una estrategia con JWT (para autenticar usuarios con JWT)
+passport.use(
+    "current",
+    new JWTStrategy(
+        {
+            jwtFromRequest: fromExtractors([(req) => req.cookies.token, fromAuthHeaderAsBearerToken()]),
+            // jwtFromRequest: (req) => req.cookies.token,
+            // jwtFromRequest: ExtractJwt.fromExtractors([
+            //     ExtractJwt.fromAuthHeaderAsBearerToken(),
+            //     ExtractJwt.fromUrlQueryParameter("token"),
+            //     ExtractJwt.fromBodyField("token"),
+            // ]),
+            // jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+            secretOrKey: secret,
+        },
+        async (jwtPayload, done) => {
+            try {
+                const user = await usersModel.findById(jwtPayload.id);
+                console.log(user);
+                console.log(jwtPayload);
+                if (!user) {
+                    return done(null, false);
+                }
+                return done(null, user);
+            } catch (error) {
+
+                return done(error, false);
+            }
+        }
+    )
+)
 
 // serializar el usuario para almacenarlo en la sesión
 passport.serializeUser((user, done) => {
