@@ -1,6 +1,6 @@
 import { Router } from 'express';
+import CartManager from '../DAL/dao/ManagerMongo/CartManagerMongo.js';
 // import CartManager from '../Dao/CartManager.js';
-import CartManager from '../Dao/ManagerMongo/CartManagerMongo.js'
 
 // Creamos un router para poder usar los endpoints de la API de carritos (REST)
 const router = Router();
@@ -14,7 +14,7 @@ router.get('/:cid', async (req, res) => {
         const { cid } = req.params;
 
         // const cart = await cartManager.getCartById(parseInt(cid));
-        const cart = await cartManager.getCartById(cid);
+        const cart = await CartManager.getCartById(cid);
 
         if (cart) {
             res.status(200).send({ status: "success", payload: cart });

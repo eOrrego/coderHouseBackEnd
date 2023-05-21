@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
+import config from '../config/config.js';
 
-const URI = 'mongodb+srv://test:coderHouse@steveo.bxgkikt.mongodb.net/ecommerce?retryWrites=true&w=majority';
+const URI = config.MONGO_ATLAS_URL;
 
 mongoose.connect(URI)
     .then(() => console.log('DB is connected'))

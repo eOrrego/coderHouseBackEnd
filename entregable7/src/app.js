@@ -1,7 +1,7 @@
 import express from 'express';
 
 // importar el archivo dbConfig.js para que se ejecute y se conecte a la base de datos
-import './db/dbConfig.js';
+import './DAL/dbConfig.js';
 
 // importar el __dirname para poder usarlo en app.js
 import { __dirname } from './utils/dirname.js';
@@ -19,7 +19,7 @@ import apiRouter from './routes/api.router.js';
 import viewsRouter from './routes/views.router.js';
 
 // importar el modelo de mensajes
-import { messagesModel } from './db/models/messages.model.js';
+import { messagesModel } from './DAL/models/messages.model.js';
 
 // importar cookie-parser
 import cookieParser from 'cookie-parser';
@@ -39,6 +39,18 @@ import passport from 'passport';
 // importar estraegias de autenticación de usuarios
 import './passport/passportStrategies.js'
 
+// importar cors para habilitar CORS
+import cors from 'cors';
+
+// importar config.js para leer variables de entorno
+import config from './config/config.js';
+
+// PORT es el puerto donde escucha el servidor
+const PORT = config.PORT;
+
+// URI es la cadena de conexión a la base de datos
+const URI = config.MONGO_ATLAS_URL;
+
 //crear una aplicación express
 const app = express();
 
@@ -47,6 +59,9 @@ const FileStoreSession = FileStore(session);
 
 //middlewares para analizar el cuerpo de la solicitud
 app.use(express.json());
+
+// cors para habilitar CORS
+app.use(cors());
 
 //parse application/x-www-form-urlencoded (para formularios HTML)
 app.use(express.urlencoded({ extended: true }));
@@ -90,7 +105,7 @@ app.set('view engine', 'handlebars');
 app.use(session({
     store: MongoStore.create({
         // nombre de la base de datos donde se guardarán las sesiones
-        mongoUrl: 'mongodb+srv://test:coderHouse@steveo.bxgkikt.mongodb.net/ecommerce?retryWrites=true&w=majority',
+        mongoUrl: URI,
         //ttl: 60 * 60 * 24 * 7, // 1 semana
     }),
     // resave es false para que no se guarde la sesión en cada petición
@@ -120,7 +135,7 @@ app.get('/', (req, res) => {
 });
 
 // port para el servidor (8080) o el puerto definido en las variables de entorno (process.env.PORT)
-app.set("port", process.env.PORT || 8080);
+app.set("port", PORT || 8080);
 
 // escuchar en el puerto 8080 y mostrar un mensaje en la consola cuando el servidor esté inicializado (listening)
 const httpServer = app.listen(app.get("port"), () => {

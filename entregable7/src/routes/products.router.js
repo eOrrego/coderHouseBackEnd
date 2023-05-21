@@ -1,6 +1,6 @@
 import { Router } from "express";
 // import ProductManager from "../Dao/ProductManager.js";
-import ProductManager from "../Dao/ManagerMongo/ProductManagerMongo.js";
+import ProductManager from "../DAL/dao/ManagerMongo/ProductManagerMongo.js";
 
 // importamos el manejador de productos para poder usarlo en los endpoints de la API de productos (REST)
 const router = Router();

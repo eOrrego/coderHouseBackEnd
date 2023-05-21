@@ -1,5 +1,5 @@
-import { usersModel } from "../../db/models/users.model.js";
-import { hashPassword, comparePassword } from "../../utils/bcrypt.js";
+import { usersModel } from "../../models/users.model.js";
+import { hashPassword, comparePassword } from "../../../utils/bcrypt.js";
 
 export default class UsersManager {
     // ahora se crea el usuario con passport y se guarda en la base de datos con el método serializeUser

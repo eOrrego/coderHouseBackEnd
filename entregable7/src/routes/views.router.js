@@ -1,7 +1,7 @@
 import { Router } from "express";
-import ProductManager from "../Dao/ManagerMongo/ProductManagerMongo.js";
-import CartManager from "../Dao/ManagerMongo/CartManagerMongo.js";
-import UsersManager from "../Dao/ManagerMongo/UsersManagerMongo.js";
+import ProductManager from "../DAL/dao/ManagerMongo/ProductManagerMongo.js";
+import CartManager from "../DAL/dao/ManagerMongo/CartManagerMongo.js";
+import UsersManager from "../DAL/dao/ManagerMongo/UsersManagerMongo.js";
 // import { cartsModel } from '../db/models/carts.model.js';
 // import { productsModel } from '../db/models/products.model.js';
 import { auth, isLogged, jwtAuth, jwtAuthCookie } from "../middlewares/auth.middleware.js";

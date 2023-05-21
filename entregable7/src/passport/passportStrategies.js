@@ -2,7 +2,7 @@ import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as GithubStrategy } from "passport-github2";
 import { ExtractJwt, Strategy as JWTStrategy } from "passport-jwt";
-import { usersModel } from "../db/models/users.model.js";
+import { usersModel } from "../DAL/models/users.model.js";
 import { hashPassword, comparePassword } from "../utils/bcrypt.js";
 
 
