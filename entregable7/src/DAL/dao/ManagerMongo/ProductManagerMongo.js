@@ -12,41 +12,52 @@ export default class ProductManager {
     //     }
     // }
 
-    async getProducts(limit, page, sort, query) {
+    // async getProducts(limit, page, sort, query) {
+    //     try {
+    //         // const allProducts = await productsModel.find();
+
+    //         const search = query ? {
+    //             stock: { $gt: 0 },
+    //             $or: [
+    //                 //devuelve todos los productos que tengan el query en el titulo o en la categoria
+    //                 { category: { $regex: query, $options: 'i' } },
+    //                 { title: { $regex: query, $options: 'i' } },
+    //             ]
+    //         } : {
+    //             //devuelve todos los productos que tengan stock mayor a 0
+    //             stock: { $gt: 0 }
+    //         }
+
+    //         if (sort === 'asc') {
+    //             sort = { price: 1 };
+    //         } else if (sort === 'desc') {
+    //             sort = { price: -1 };
+    //         }
+
+    //         const options = {
+    //             page: page || 1,
+    //             limit: limit || 10,
+    //             sort: sort,
+    //             lean: true,
+    //         }
+
+    //         const allProducts = await productsModel.paginate(search, options)
+    //         return allProducts;
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
+
+    async getProducts(search, options) {
         try {
-            // const allProducts = await productsModel.find();
-
-            const search = query ? {
-                stock: { $gt: 0 },
-                $or: [
-                    //devuelve todos los productos que tengan el query en el titulo o en la categoria
-                    { category: { $regex: query, $options: 'i' } },
-                    { title: { $regex: query, $options: 'i' } },
-                ]
-            } : {
-                //devuelve todos los productos que tengan stock mayor a 0
-                stock: { $gt: 0 }
-            }
-
-            if (sort === 'asc') {
-                sort = { price: 1 };
-            } else if (sort === 'desc') {
-                sort = { price: -1 };
-            }
-
-            const options = {
-                page: page || 1,
-                limit: limit || 10,
-                sort: sort,
-                lean: true,
-            }
-
             const allProducts = await productsModel.paginate(search, options)
             return allProducts;
         } catch (error) {
             console.log(error);
+            return error;
         }
     }
+
 
     async getProductById(id) {
         try {
