@@ -1,5 +1,5 @@
 import { usersModel } from "../../models/users.model.js";
-import { hashPassword, comparePassword } from "../../../utils/bcrypt.js";
+// import { hashPassword, comparePassword } from "../../../utils/bcrypt.js";
 
 export default class UsersManager {
     // ahora se crea el usuario con passport y se guarda en la base de datos con el método serializeUser
@@ -26,26 +26,39 @@ export default class UsersManager {
     //     }
     // }
 
-    async loginUser(user) {
-        // const { email, password } = user;
+    // async loginUser(user) {
+    //     // const { email, password } = user;
+    //     try {
+    //         const { email, password } = user;
+    //         const userLogged = await usersModel.findOne({ email });
+    //         if (!userLogged) {
+    //             return false;
+    //         } else {
+    //             const isMatch = await comparePassword(password, userLogged.password);
+    //             if (isMatch) {
+    //                 return userLogged;
+    //             } else {
+    //                 return false;
+    //             }
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //         throw new Error(error);
+    //     }
+    // }
+
+    // busca el usuario por email y devuelve el usuario
+    async getUserByEmail(email) {
         try {
-            const { email, password } = user;
-            const userLogged = await usersModel.findOne({ email });
-            if (!userLogged) {
-                return false;
-            } else {
-                const isMatch = await comparePassword(password, userLogged.password);
-                if (isMatch) {
-                    return userLogged;
-                } else {
-                    return false;
-                }
-            }
+            const user = await usersModel.findOne({ email });
+            return user;
         } catch (error) {
             console.log(error);
             throw new Error(error);
         }
     }
+
+
 
     async getUserById(id) {
         try {

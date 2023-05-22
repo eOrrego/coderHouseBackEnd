@@ -1,10 +1,11 @@
 import { Router } from "express";
-import UsersManager from "../DAL/dao/ManagerMongo/UsersManagerMongo.js";
+// import UsersManager from "../DAL/dao/ManagerMongo/UsersManagerMongo.js";
 import passport from 'passport';
-import { generateToken } from "../utils/jwt.js";
+// import { generateToken } from "../utils/jwt.js";
+import { loginUsers } from "../controllers/users.controller.js";
 
 const router = Router();
-const usersManager = new UsersManager();
+// const usersManager = new UsersManager();
 
 // register sin passport
 // router.post('/register', async (req, res) => {
@@ -64,22 +65,24 @@ router.post('/register', passport.authenticate('Register', {
 
 
 // login con JWT sin passport (no se usa)
-router.post('/login', async (req, res) => {
-    try {
-        const user = req.body;
-        const userLogged = await usersManager.loginUser(user);
-        if (userLogged) {
-            const token = generateToken(userLogged);
-            res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24 * 30, httpOnly: true });
-            res.redirect('/products');
-            // res.send(token);
-        } else {
-            res.redirect('/errorLogin');
-        }
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-});
+// router.post('/login', async (req, res) => {
+//     try {
+//         const user = req.body;
+//         const userLogged = await usersManager.loginUser(user);
+//         if (userLogged) {
+//             const token = generateToken(userLogged);
+//             res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24 * 30, httpOnly: true });
+//             res.redirect('/products');
+//             // res.send(token);
+//         } else {
+//             res.redirect('/errorLogin');
+//         }
+//     } catch (error) {
+//         res.status(400).json({ error: error.message });
+//     }
+// });
+
+router.post('/login', loginUsers);
 
 // login con JWT con passport
 router.get('/loginpass', passport.authenticate('current', { session: false }), (req, res) => {
