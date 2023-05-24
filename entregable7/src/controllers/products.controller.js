@@ -1,5 +1,13 @@
-import { getProducts, getProductById, addProduct, updateProduct, deleteProduct } from "../services/products.service.js";
+import {
+    getProducts,
+    getProductById,
+    addProduct,
+    updateProduct,
+    deleteProduct
+} from "../services/products.service.js";
 
+
+// busca todos los productos y los devuelve si los encuentra o devuelve un error si no los encuentra
 export const findAllProducts = async (req, res) => {
     try {
         const { limit, page, sort, query } = req.query;
@@ -14,6 +22,7 @@ export const findAllProducts = async (req, res) => {
     }
 }
 
+// busca un producto y lo devuelve si lo encuentra o devuelve un error si no lo encuentra
 export const findOneProduct = async (req, res) => {
     try {
         const { pid } = req.params;
@@ -31,6 +40,7 @@ export const findOneProduct = async (req, res) => {
     }
 }
 
+// agrega un producto y lo devuelve si lo encuentra o devuelve un error si no lo encuentra
 export const addOneProduct = async (req, res) => {
     try {
         const product = req.body;
@@ -48,6 +58,7 @@ export const addOneProduct = async (req, res) => {
     }
 }
 
+// actualiza un producto y lo devuelve si lo encuentra o devuelve un error si no lo encuentra
 export const updateOneProduct = async (req, res) => {
     try {
         const { pid } = req.params;
@@ -66,6 +77,7 @@ export const updateOneProduct = async (req, res) => {
     }
 }
 
+// elimina un producto y lo devuelve si lo encuentra o devuelve un error si no lo encuentra
 export const deleteOneProduct = async (req, res) => {
     try {
         const { pid } = req.params;

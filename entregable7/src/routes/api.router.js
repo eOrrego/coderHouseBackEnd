@@ -8,10 +8,10 @@ import sessionRouter from './session.router.js';
 // Creamos un router para poder usar los endpoints de la API de carritos (REST)
 const router = Router();
 
-//las rutas para los endpoints de la API de productos (REST) se definen en el router de productos (products.router.js) y se asignan a la ruta /api/products
+// Ruta de productos
 router.use('/products', productsRouter);
 
-//las rutas para los endpoints de la API de carritos (REST) se definen en el router de carritos (carts.router.js) y se asignan a la ruta /api/carts
+// Ruta de carritos
 router.use('/carts', cartsRouter);
 
 //Ruta de usuarios

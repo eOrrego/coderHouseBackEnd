@@ -1,28 +1,11 @@
 import { Router } from "express";
-// import UsersManager from "../DAL/dao/ManagerMongo/UsersManagerMongo.js";
 import passport from 'passport';
-// import { generateToken } from "../utils/jwt.js";
 import { loginUsers } from "../controllers/users.controller.js";
 
 const router = Router();
-// const usersManager = new UsersManager();
 
-// register sin passport
-// router.post('/register', async (req, res) => {
-//     try {
-//         const user = req.body;
-//         const newUser = await usersManager.createUser(user);
-//         if (newUser) {
-//             res.redirect('/login');
-//         } else {
-//             res.redirect('/errorRegister');
-//         }
-//     } catch (error) {
-//         res.status(400).json({ error: error.message });
-//     }
-// });
 
-// register con passport
+// ruta para registrar un usuario
 router.post('/register', passport.authenticate('Register', {
     successRedirect: '/login',
     failureRedirect: '/errorRegister',
@@ -63,33 +46,15 @@ router.post('/register', passport.authenticate('Register', {
 //     }
 // ));
 
-
-// login con JWT sin passport (no se usa)
-// router.post('/login', async (req, res) => {
-//     try {
-//         const user = req.body;
-//         const userLogged = await usersManager.loginUser(user);
-//         if (userLogged) {
-//             const token = generateToken(userLogged);
-//             res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24 * 30, httpOnly: true });
-//             res.redirect('/products');
-//             // res.send(token);
-//         } else {
-//             res.redirect('/errorLogin');
-//         }
-//     } catch (error) {
-//         res.status(400).json({ error: error.message });
-//     }
-// });
-
+// Ruta para loguear un usuario
 router.post('/login', loginUsers);
 
-// login con JWT con passport
+// Ruta para extraer usuario de la sesión actual
 router.get('/loginpass', passport.authenticate('current', { session: false }), (req, res) => {
     res.send(req.user);
 });
 
-// logout borra la cookie y la session
+// Ruta para desloguear un usuario
 router.get('/logout', (req, res) => {
     res.clearCookie('token');
     req.session.destroy((error) => {
@@ -101,16 +66,10 @@ router.get('/logout', (req, res) => {
     })
 });
 
-// // logout borra la cookie
-// router.get('/logoutcookie', (req, res) => {
-//     res.clearCookie('token');
-//     res.redirect('/login');
-// });
-
-// Register with passport github strategy
+// Ruta para logear un usuario con github strategy
 router.get('/github', passport.authenticate('Github', { scope: ['user:email'] }));
 
-// Login with passport github strategy
+// Ruta para callback de github strategy
 router.get('/github/callback', passport.authenticate('Github', {
     // successRedirect: '/products',
     failureRedirect: '/errorRegister',
@@ -120,7 +79,7 @@ router.get('/github/callback', passport.authenticate('Github', {
     req.session.userId = req.user._id;
     req.session.isAdmin = false;
     req.session.role = req.user.role;
-    res.redirect('/products');
+    res.redirect('/profile');
 });
 
 

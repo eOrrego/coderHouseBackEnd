@@ -1,7 +1,9 @@
 import ProductManager from "../DAL/dao/ManagerMongo/ProductManagerMongo.js";
 
+// instanciamos el manager de productos para poder usar sus métodos
 const productsManager = new ProductManager()
 
+// exportamos la funcion que se encarga de obtener todos los productos
 export const getProducts = async (limit, page, sort, query) => {
     try {
         // const allProducts = await productsModel.find();
@@ -57,6 +59,7 @@ export const getProducts = async (limit, page, sort, query) => {
     }
 }
 
+// exportamos la funcion que se encarga de obtener un producto por id
 export const getProductById = async (id) => {
     try {
         const product = await productsManager.getProductById(id);
@@ -66,6 +69,7 @@ export const getProductById = async (id) => {
     }
 }
 
+// exportamos la funcion que se encarga de agregar un producto
 export const addProduct = async (product) => {
     try {
         const newProduct = await productsManager.addProduct(product);
@@ -75,6 +79,7 @@ export const addProduct = async (product) => {
     }
 }
 
+// exportamos la funcion que se encarga de actualizar un producto
 export const updateProduct = async (id, product) => {
     try {
         const updatedProduct = await productsManager.updateProduct(id, product);
@@ -84,6 +89,7 @@ export const updateProduct = async (id, product) => {
     }
 }
 
+// exportamos la funcion que se encarga de eliminar un producto
 export const deleteProduct = async (id) => {
     try {
         const deletedProduct = await productsManager.deleteProduct(id);

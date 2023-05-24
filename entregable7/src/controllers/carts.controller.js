@@ -8,6 +8,8 @@ import {
     updateProductsQaFromCart
 } from "../services/carts.service.js";
 
+
+// busca un carrito por id y lo devuelve si lo encuentra o devuelve un error si no lo encuentra
 export const findOneCart = async (req, res) => {
     try {
         const { cid } = req.params;
@@ -25,6 +27,7 @@ export const findOneCart = async (req, res) => {
     }
 }
 
+// crea un carrito y lo devuelve si lo crea o devuelve un error si no lo crea
 export const createCart = async (req, res) => {
     try {
         const cart = await addCart();
@@ -36,6 +39,7 @@ export const createCart = async (req, res) => {
     }
 }
 
+// agrega un producto a un carrito y devuelve el carrito si lo encuentra o devuelve un error si no lo encuentra
 export const addOneProductToCart = async (req, res) => {
     try {
         const { cid, pid } = req.params;
@@ -53,6 +57,7 @@ export const addOneProductToCart = async (req, res) => {
     }
 }
 
+// elimina un producto de un carrito y devuelve el carrito si lo encuentra o devuelve un error si no lo encuentra
 export const deleteOneProductFromCart = async (req, res) => {
     try {
         const { cid, pid } = req.params;
@@ -70,6 +75,7 @@ export const deleteOneProductFromCart = async (req, res) => {
     }
 }
 
+// elimina todos los productos de un carrito y devuelve el carrito si lo encuentra o devuelve un error si no lo encuentra
 export const deleteAllProductsFromCart = async (req, res) => {
     try {
         const { cid } = req.params;
@@ -87,6 +93,8 @@ export const deleteAllProductsFromCart = async (req, res) => {
     }
 }
 
+// actualiza todos los productos de un carrito y devuelve el carrito si lo encuentra o devuelve un error si no lo encuentra
+// VER POR QUE NO ANDA BIEN
 export const updateAllProductsFromCart = async (req, res) => {
     try {
         const { cid } = req.params;
@@ -101,10 +109,11 @@ export const updateAllProductsFromCart = async (req, res) => {
         }
     } catch (err) {
         console.error(err);
-        res.status(500).send({ status: "error", error: 'Error al eliminar el producto del carrito' });
+        res.status(500).send({ status: "error", error: 'Error al actualizar el producto del carrito' });
     }
 }
 
+// actualiza la cantidad de un producto de un carrito y devuelve el carrito si lo encuentra o devuelve un error si no lo encuentra
 export const updateProductQuantityFromCart = async (req, res) => {
     try {
         const { cid, pid } = req.params;
@@ -119,6 +128,6 @@ export const updateProductQuantityFromCart = async (req, res) => {
         }
     } catch (err) {
         console.error(err);
-        res.status(500).send({ status: "error", error: 'Error al eliminar el producto del carrito' });
+        res.status(500).send({ status: "error", error: 'Error al actualizar el producto del carrito' });
     }
 }

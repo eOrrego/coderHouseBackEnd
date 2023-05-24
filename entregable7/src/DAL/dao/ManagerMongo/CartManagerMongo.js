@@ -1,9 +1,10 @@
-
 import { productsModel } from "../../models/products.model.js";
 import { cartsModel } from "../../models/carts.model.js";
 
+// clase que se encarga de manejar los carritos en la base de datos de mongo
 export default class CartManager {
 
+    // crea un carrito vacio y devuelve el carrito
     async addCart() {
         try {
             const newCart = new cartsModel();
@@ -14,9 +15,9 @@ export default class CartManager {
         }
     }
 
+    // busca el carrito por id y devuelve el carrito
     async getCartById(id) {
         try {
-            // Busco el carrito por su id y lo devuelvo con los productos populados (con toda su información)
             const cart = await cartsModel.findOne({ _id: id });
             return cart;
         } catch (error) {
@@ -24,38 +25,7 @@ export default class CartManager {
         }
     }
 
-    // async addProductToCart(cartId, productId) {
-    //     try {
-    //         const cart = await cartsModel.findOne({ _id: cartId });
-    //         if (!cart) {
-    //             return null;
-    //         }
-
-    //         const pro = await productsModel.findById(productId);
-    //         if (!pro) {
-    //             return null;
-    //         }
-
-    //         const product = cart.products.find((product) => product.pid._id.toString() === productId);
-
-
-    //         if (!product) {
-    //             console.log("first")
-    //             cart.products.push({ pid: productId, quantity: 1 });
-    //             await cart.save();
-    //         } else {
-    //             console.log("second")
-    //             product.quantity++;
-    //             await cart.updateOne({ products: cart.products });
-    //         }
-
-    //         return cart;
-
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
-
+    // guarda el carrito
     async saveCart(cart) {
         try {
             await cart.save();
@@ -64,6 +34,7 @@ export default class CartManager {
         }
     }
 
+    // actualiza el carrito
     async updateOneCart(cart) {
         try {
             await cart.updateOne({ products: cart.products });
@@ -71,102 +42,5 @@ export default class CartManager {
             console.log(error);
         }
     }
-
-    // async deleteProductFromCart(cartId, productId) {
-    //     try {
-
-    //         const cart = await cartsModel.findById(cartId);
-    //         if (!cart) {
-    //             return null;
-    //         }
-
-    //         const product = cart.products.find((product) => product.pid.toString() === productId);
-    //         if (!product) {
-    //             return null;
-    //         }
-
-    //         if (product.quantity > 1) {
-    //             product.quantity--;
-    //             await cart.updateOne({ products: cart.products });
-    //         } else {
-    //             cart.products = cart.products.filter((product) => product.pid.toString() !== productId);
-    //             await cart.updateOne({ products: cart.products });
-    //         }
-
-    //         return cart;
-
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
-
-    // async deleteAllProductsFromCart(cartId) {
-    //     try {
-
-    //         const cart = await cartsModel.findById(cartId);
-    //         if (!cart) {
-    //             return null;
-    //         }
-
-    //         cart.products = [];
-
-    //         await cart.updateOne({ products: cart.products });
-
-    //         return cart;
-
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
-
-    // async updateAllProductsFromCart(cartId, products) {
-    //     try {
-
-    //         const cart = await cartsModel.findById(cartId);
-    //         if (!cart) {
-    //             return null;
-    //         }
-
-    //         // verificar que los productos existan
-    //         for (const product of products) {
-    //             const pro = await productsModel.findById(product.pid);
-    //             if (!pro) {
-    //                 return null;
-    //             }
-    //         }
-
-    //         cart.products = products;
-
-    //         await cart.updateOne({ products: cart.products });
-
-    //         return cart;
-
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
-
-    // async updateProductQuantityFromCart(cartId, productId, quantity) {
-    //     try {
-    //         const cart = await cartsModel.findById(cartId);
-    //         if (!cart) {
-    //             return null;
-    //         }
-
-    //         const product = cart.products.find((product) => product.pid.toString() === productId);
-    //         if (!product) {
-    //             return null;
-    //         }
-
-    //         product.quantity = quantity;
-
-    //         await cart.updateOne({ products: cart.products });
-
-    //         return cart;
-
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
 
 }

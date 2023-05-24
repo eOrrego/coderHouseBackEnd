@@ -1,9 +1,12 @@
 import CartManager from "../DAL/dao/ManagerMongo/CartManagerMongo.js";
 import ProductManager from "../DAL/dao/ManagerMongo/ProductManagerMongo.js";
 
+// instanciamos el manager de carritos para poder usar sus métodos
 const cartManager = new CartManager();
+// instanciamos el manager de productos para poder usar sus métodos
 const productManager = new ProductManager();
 
+// exportamos la funcion que se encarga de obtener un carrito por id
 export const getCart = async (cid) => {
     try {
         const cart = await cartManager.getCartById(cid);
@@ -14,6 +17,7 @@ export const getCart = async (cid) => {
     }
 }
 
+// exportamos la funcion que se encarga de agregar un carrito vacio
 export const addCart = async () => {
     try {
         const cart = await cartManager.addCart();
@@ -24,6 +28,7 @@ export const addCart = async () => {
     }
 }
 
+// exportamos la funcion que se encarga de agregar un producto al carrito
 export const addProductToCart = async (cid, pid) => {
     try {
         const cart = await cartManager.getCartById(cid);
@@ -53,6 +58,7 @@ export const addProductToCart = async (cid, pid) => {
     }
 }
 
+// exportamos la funcion que se encarga de eliminar un producto del carrito
 export const deleteProductFromCart = async (cid, pid) => {
     try {
         const cart = await cartManager.getCartById(cid);
@@ -79,6 +85,7 @@ export const deleteProductFromCart = async (cid, pid) => {
     }
 }
 
+// exportamos la funcion que se encarga de eliminar todos los productos del carrito
 export const deleteProductsFromCart = async (cid) => {
     try {
         const cart = await cartManager.getCartById(cid);
@@ -96,6 +103,7 @@ export const deleteProductsFromCart = async (cid) => {
     }
 }
 
+// exportamos la funcion que se encarga de actualizar los productos del carrito
 export const updateProductsFromCart = async (cid, products) => {
     try {
         const cart = await cartManager.getCartById(cid);
@@ -136,6 +144,7 @@ export const updateProductsFromCart = async (cid, products) => {
     }
 }
 
+// exportamos la funcion que se encarga de actualizar la cantidad de un producto del carrito
 export const updateProductsQaFromCart = async (cid, pid, quantity) => {
     try {
         const cart = await cartManager.getCartById(cid);

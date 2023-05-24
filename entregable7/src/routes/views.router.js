@@ -1,14 +1,11 @@
 import { Router } from "express";
 import ProductManager from "../DAL/dao/ManagerMongo/ProductManagerMongo.js";
 import CartManager from "../DAL/dao/ManagerMongo/CartManagerMongo.js";
-import UsersManager from "../DAL/dao/ManagerMongo/UsersManagerMongo.js";
-// import { cartsModel } from '../db/models/carts.model.js';
-// import { productsModel } from '../db/models/products.model.js';
 import { auth, isLogged, jwtAuth, jwtAuthCookie } from "../middlewares/auth.middleware.js";
 
 const router = Router();
-const usersManager = new UsersManager();
 
+// Ruta para ir al chat de la aplicación (no es necesario estar logueado)
 router.get("/chat", (req, res) => {
     res.render("chat", {
         title: "Chat",
@@ -16,17 +13,13 @@ router.get("/chat", (req, res) => {
     });
 });
 
-// Ruta para visualizar todos los productos
+// Ruta para ver todos los productos, tiene que estar logueado
 router.get("/products", jwtAuthCookie, async (req, res) => {
-    // console.log("1 REQ: ", req);
-    // console.log("2 REQUSER: ", req.user);
 
     const { first_name, last_name, email, age, role } = req.user;
-    // const userLogged = await usersManager.getUserById(userId);
-    // const { first_name, last_name, email, age } = userLogged;
 
     const productManager = new ProductManager();
-    const products = await productManager.getProducts(2);
+    const products = await productManager.getProducts();
 
     res.render("products", {
         products,
@@ -44,7 +37,6 @@ router.get("/products/page/:page", jwtAuthCookie, async (req, res) => {
 
     const productManager = new ProductManager();
     const products = await productManager.getProducts(2, page);
-    // console.log(products);
 
     res.render("products", { products });
 });
@@ -53,8 +45,6 @@ router.get("/products/page/:page", jwtAuthCookie, async (req, res) => {
 router.get("/products/:id", jwtAuthCookie, async (req, res) => {
     const productManager = new ProductManager();
     const product = await productManager.getProductById(req.params.id);
-
-    // console.log(product);
 
     const { _id, title, description, price, code, stock, category, thumbnail } =
         product;
@@ -94,9 +84,6 @@ router.get("/login", isLogged, (req, res) => {
 // Ruta perfil de usuario
 router.get("/profile", jwtAuthCookie, async (req, res) => {
     const { first_name, last_name, email, age, role } = req.user;
-    // const { userId, isAdmin, role } = req.session;
-    // const userLogged = await usersManager.getUserById(userId);
-    // const { first_name, last_name, email, age } = userLogged;
     res.render("profile", { first_name, last_name, email, age, role });
 });
 

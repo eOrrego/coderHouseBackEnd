@@ -1,64 +1,21 @@
 import { productsModel } from "../../models/products.model.js";
 
+// clase que se encarga de manejar los productos en la base de datos de mongo
 export default class ProductManager {
 
-    // Ver lo de lean()
-    // async getAll() {
-    //     try {
-    //         const allProducts = await productsModel.find().lean(); 
-    //         return allProducts;
-    //     } catch (error) {
-    //         console.log(`Error obteniendo todos los productos: ${error.message}`);
-    //     }
-    // }
-
-    // async getProducts(limit, page, sort, query) {
-    //     try {
-    //         // const allProducts = await productsModel.find();
-
-    //         const search = query ? {
-    //             stock: { $gt: 0 },
-    //             $or: [
-    //                 //devuelve todos los productos que tengan el query en el titulo o en la categoria
-    //                 { category: { $regex: query, $options: 'i' } },
-    //                 { title: { $regex: query, $options: 'i' } },
-    //             ]
-    //         } : {
-    //             //devuelve todos los productos que tengan stock mayor a 0
-    //             stock: { $gt: 0 }
-    //         }
-
-    //         if (sort === 'asc') {
-    //             sort = { price: 1 };
-    //         } else if (sort === 'desc') {
-    //             sort = { price: -1 };
-    //         }
-
-    //         const options = {
-    //             page: page || 1,
-    //             limit: limit || 10,
-    //             sort: sort,
-    //             lean: true,
-    //         }
-
-    //         const allProducts = await productsModel.paginate(search, options)
-    //         return allProducts;
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
-
+    // busca todos los productos y devuelve los productos
     async getProducts(search, options) {
         try {
-            const allProducts = await productsModel.paginate(search, options)
+            const allProducts = await productsModel.paginate(search, options);
             return allProducts;
+
         } catch (error) {
             console.log(error);
             return error;
         }
     }
 
-
+    // busca el producto por id y devuelve el producto
     async getProductById(id) {
         try {
             const product = await productsModel.findById(id);
@@ -68,6 +25,7 @@ export default class ProductManager {
         }
     }
 
+    // agrega un producto y devuelve el producto
     async addProduct(product) {
         try {
             const newProduct = new productsModel(product);
@@ -78,6 +36,7 @@ export default class ProductManager {
         }
     }
 
+    // actualiza un producto y devuelve el producto actualizado
     async updateProduct(id, update) {
         try {
             const updatedProduct = await productsModel.findOneAndUpdate(id, update, { new: true });
@@ -87,6 +46,7 @@ export default class ProductManager {
         }
     }
 
+    // elimina un producto y devuelve el producto eliminado
     async deleteProduct(id) {
         try {
             const product = await productsModel.findByIdAndDelete(id);
@@ -95,14 +55,5 @@ export default class ProductManager {
             console.log(error);
         }
     }
-
-    // async query(options) {
-    //     try{
-    //         const products = await productsModel.find(options);
-    //         return products;
-    //     }catch(error){
-    //         console.log(error);
-    //     }
-    // }
 
 }
