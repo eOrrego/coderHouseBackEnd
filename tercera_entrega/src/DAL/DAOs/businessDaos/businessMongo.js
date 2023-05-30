@@ -1,12 +1,12 @@
-import { businessModel } from '../../mongoDB/models/business.model.js';
+import bussinessModel from '../../mongoDB/models/bussiness.model.js';
 import BasicMongo from '../basicMongo.js';
 
-class BusinessMongo extends BasicMongo {
-    constructor(model) {
-        super(model);
+class BussinessMongo extends BasicMongo {
+    constructor() {
+        super(bussinessModel);
     }
 }
 
-const businessMongo = new BusinessMongo(businessModel);
+const bussinessMongo = new BussinessMongo();
 
-export default businessMongo;
+export default bussinessMongo;
