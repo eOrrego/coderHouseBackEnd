@@ -1,12 +1,12 @@
-import { ordersModel } from '../../mongoDB/models/orders.model.js';
+import ordersModel from '../../mongoDB/models/orders.model.js';
 import BasicMongo from '../basicMongo.js';
 
-class OrderMongo extends BasicMongo {
-    constructor(model) {
-        super(model);
+class OrdersMongo extends BasicMongo {
+    constructor() {
+        super(ordersModel);
     }
 }
 
-const ordersMongo = new OrderMongo(ordersModel);
+const ordersMongo = new OrdersMongo();
 
 export default ordersMongo;
