@@ -19,19 +19,35 @@ const usersSchema = new mongoose.Schema({
         min: 3,
         max: 50
     },
+    age: {
+        type: Number,
+        required: false,
+        min: 18,
+    },
     role: {
         type: String,
         required: true,
+        enum: ['user', 'admin'],
         default: 'user'
-        // enum: ['user', 'admin']
     },
     status: {
         type: String,
         required: true,
+        enum: ['active', 'inactive'],
         default: 'active'
-        // enum: ['active', 'inactive']
     },
-    orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Orders' }]
+    cart: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Carts'
+    },
+    orders: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Orders'
+    }],
+    deleteAt: {
+        type: Date,
+        required: false,
+    },
 }, { timestamps: true });
 
 const usersModel = mongoose.model('Users', usersSchema);

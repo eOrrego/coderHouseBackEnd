@@ -1,6 +1,8 @@
 import usersMongo from '../DAL/DAOs/usersDaos/usersMongo.js'
-import { hashData } from '../utils/bcrypt.utils.js';
-import UsersDTO from '../DAL/DTOs/users.dto.js';
+import { hashData, compareData } from '../utils/bcrypt.utils.js';
+import { generateToken, verifyToken } from '../utils/jwt.utils.js';
+import { UsersDTO, UsersViewDTO } from '../DAL/DTOs/users.dto.js';
+import config from '../config/config.js';
 
 class UsersService {
     async findAll() {
@@ -61,6 +63,56 @@ class UsersService {
         }
     }
 
+    async login(users) {
+        const { password, email } = users;
+        try {
+
+            if (email === config.admin_email && password === config.admin_password) {
+                const userAdmin = {
+                    email,
+                    role: "admin"
+                }
+                const token = generateToken(userAdmin);
+                return token;
+            }
+
+            const result = await usersMongo.findByField('email', email);
+            if (result) {
+                const { password: hashPassword } = result[0];
+                const isMatch = await compareData(password, hashPassword);
+                if (isMatch) {
+                    const token = generateToken(result[0]);
+                    return token;
+                }
+                return null;
+            }
+            return null;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+
+    async current(token) {
+        try {
+            const { id, email, role } = verifyToken(token);
+
+            if (role === "admin") {
+                const userAdmin = {
+                    email,
+                    role
+                }
+                return userAdmin;
+            }
+
+            const result = await usersMongo.findById(id);
+            const usersViewDTO = new UsersViewDTO(result);
+            return usersViewDTO;
+        } catch (error) {
+            return error;
+        }
+    }
+
     // async findByName(name) {
     //     try {
     //         const result = await usersMongo.findByName(name);
@@ -69,6 +121,7 @@ class UsersService {
     //         return error;
     //     }
     // }
+
 }
 
 const usersService = new UsersService();

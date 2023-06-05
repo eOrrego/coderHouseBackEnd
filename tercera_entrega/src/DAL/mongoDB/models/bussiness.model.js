@@ -24,10 +24,14 @@ const bussinessSchema = new mongoose.Schema({
     },
     status: {
         type: String,
+        enum: ['active', 'inactive'],
         default: 'active'
-        // enum: ['active', 'inactive']
     },
     products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Products' }],
+    deleteAt: {
+        type: Date,
+        required: false,
+    },
 }, { timestamps: true });
 
 const bussinessModel = mongoose.model('Bussiness', bussinessSchema);
