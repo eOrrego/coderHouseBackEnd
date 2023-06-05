@@ -7,6 +7,24 @@ const productsSchema = new mongoose.Schema({
         min: 3,
         max: 50
     },
+    description: {
+        type: String,
+        required: false,
+        min: 3,
+        max: 200
+    },
+    thumbnail: {
+        type: Array,
+        required: false,
+    },
+    code: {
+        type: String,
+        required: false,
+    },
+    category: {
+        type: String,
+        required: false,
+    },
     price: {
         type: Number,
         required: true,
@@ -21,8 +39,12 @@ const productsSchema = new mongoose.Schema({
     },
     status: {
         type: String,
+        enum: ['active', 'inactive'],
         default: 'active'
-        // enum: ['active', 'inactive']
+    },
+    deleteAt: {
+        type: Date,
+        required: false,
     },
 }, { timestamps: true });
 

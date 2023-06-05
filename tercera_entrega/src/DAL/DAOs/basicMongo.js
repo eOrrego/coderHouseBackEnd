@@ -51,7 +51,12 @@ export default class BasicMongo {
     // borrar pero indicando como status 'inactive' realizando un update en lugar de un delete
     async deleteSoft(id) {
         try {
-            const result = await this.model.findOneAndUpdate({ _id: id }, { status: 'inactive' }, { new: true });
+            const result = await this.model.findOneAndUpdate({ _id: id },
+                {
+                    status: 'inactive',
+                    deleteAt: Date.now()
+                },
+                { new: true });
             return result;
         } catch (error) {
             return error;
@@ -59,13 +64,13 @@ export default class BasicMongo {
     }
 
     // busca por un campo en particular y devuelve un array de resultados (puede ser vacío)
-    // async findByField(field, value) {
-    //     try {
-    //         const result = await this.model.find({ [field]: value });
-    //         return result;
-    //     } catch (error) {
-    //         return error;
-    //     }
-    // }
+    async findByField(field, value) {
+        try {
+            const result = await this.model.find({ [field]: value });
+            return result;
+        } catch (error) {
+            return error;
+        }
+    }
 }
 

@@ -3,10 +3,8 @@ import config from './config/config.js';
 // import './DAL/mongoDB/dbConfig.js'
 import connectDB from './DAL/mongoDB/dbConfig.js';
 import morgan from 'morgan';
-import businessRouter from './routes/business.router.js';
-import usersRouter from './routes/users.router.js';
-import productsRouter from './routes/products.router.js';
-import ordersRouter from './routes/orders.router.js';
+import cookieParser from 'cookie-parser';
+import apiRouter from './routes/api.router.js';
 
 const app = express();
 
@@ -16,11 +14,9 @@ app.use(morgan('dev'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
-app.use('/api/business', businessRouter);
-app.use('/api/users', usersRouter);
-app.use('/api/products', productsRouter);
-app.use('/api/orders', ordersRouter);
+app.use('/api', apiRouter);
 
 const PORT = config.port;
 

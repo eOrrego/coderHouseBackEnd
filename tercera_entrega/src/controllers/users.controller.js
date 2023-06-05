@@ -56,6 +56,36 @@ class UsersController {
         }
     }
 
+    async loginUsers(req, res) {
+        // aqui hay que hacer validaciones de los datos que vienen en el body
+        try {
+            const result = await usersService.login(req.body);
+            res.cookie("token", result, { httpOnly: true });
+            res.status(200).json(`Token: ${result}`);
+        } catch (error) {
+            res.status(400).json(error);
+        }
+    }
+
+    async logoutUsers(req, res) {
+        try {
+            res.clearCookie("token");
+            res.status(200).json("Logout OK");
+        } catch (error) {
+            res.status(400).json(error);
+        }
+    }
+
+    async currentUsers(req, res) {
+        try {
+            const tokenUser = req.cookies.token;
+            const result = await usersService.current(tokenUser);
+            res.status(200).json(result);
+        } catch (error) {
+            res.status(400).json(error);
+        }
+    }
+
 }
 
 const usersController = new UsersController();
