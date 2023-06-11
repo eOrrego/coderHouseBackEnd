@@ -1,4 +1,5 @@
 import productsMongo from '../DAL/DAOs/productsDaos/productsMongo.js'
+import productsMocks from '../utils/mocks.utils.js';
 
 class ProductsService {
     async findAll() {
@@ -49,6 +50,15 @@ class ProductsService {
     async deleteSoft(id) {
         try {
             const result = await productsMongo.deleteSoft(id);
+            return result;
+        } catch (error) {
+            return error;
+        }
+    }
+
+    async findAllMocks() {
+        try {
+            const result = productsMocks;
             return result;
         } catch (error) {
             return error;

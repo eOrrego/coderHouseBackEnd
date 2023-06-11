@@ -16,4 +16,7 @@ router.delete("/:id", verifyTokenAdmin, productsController.deleteProducts);
 
 router.delete("/soft/:id", verifyTokenAdmin, productsController.deleteSoftProducts);
 
+//ruta utilizando mocks
+router.get("/mocks/mockingproducts", productsController.findAllProductsMocks);
+
 export default router;
