@@ -1,4 +1,6 @@
 import productsService from "../services/products.service.js";
+import customError from "../utils/customError.js";
+import { ErrorName, ErrorMessage, ErrorCause } from "../utils/error.enum.js";
 
 class ProductsController {
     async findAllProducts(req, res) {
@@ -61,7 +63,11 @@ class ProductsController {
             const result = await productsService.findAllMocks();
             res.status(200).json(result);
         } catch (error) {
-            res.status(400).json(error);
+            customError.createCustomError({
+                name: ErrorName.INTERNAL_SERVER_ERROR,
+                message: ErrorMessage.INTERNAL_SERVER_ERROR,
+                cause: ErrorCause.INTERNAL_SERVER_ERROR,
+            });
         }
     }
 
