@@ -72,7 +72,7 @@ const productionLogger = winston.createLogger({
 });
 
 // Exportar el logger correspondiente según el entorno de ejecución (development o production)
-export const getLogger = (env) => {
+export const logger = (env) => {
     if (env === 'development') {
         return developmentLogger;
     }
