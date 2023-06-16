@@ -8,4 +8,5 @@ export default {
     secretKey: process.env.SECRETKEY,
     admin_email: process.env.ADMIN_EMAIL,
     admin_password: process.env.ADMIN_PASSWORD,
+    node_env: process.env.NODE_ENV
 }
