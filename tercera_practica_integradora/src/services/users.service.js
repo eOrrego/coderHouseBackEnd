@@ -1,8 +1,9 @@
 import usersMongo from '../DAL/DAOs/usersDaos/usersMongo.js'
 import { hashData, compareData } from '../utils/bcrypt.utils.js';
-import { generateToken, verifyToken } from '../utils/jwt.utils.js';
+import { generateToken, verifyToken, generateTokenResetPassword, verifyTokenResetPassword, decodeTokenResetPassword } from '../utils/jwt.utils.js';
 import { UsersDTO, UsersViewDTO } from '../DAL/DTOs/users.dto.js';
 import config from '../config/config.js';
+import emailService from '../utils/emailService.utils.js';
 
 class UsersService {
     async findAll() {
@@ -108,6 +109,47 @@ class UsersService {
             const result = await usersMongo.findById(id);
             const usersViewDTO = new UsersViewDTO(result);
             return usersViewDTO;
+        } catch (error) {
+            return error;
+        }
+    }
+
+    async forgotPassword(email) {
+        try {
+            const result = await usersMongo.findByField('email', email);
+            if (result) {
+                const token = generateTokenResetPassword(result[0]);
+                const url = `${config.url_frontend}/reset-password/${token}`;
+                const emailBody = {
+                    to: email,
+                    subject: 'Reset Password',
+                    html: `<h1>Reset Password</h1>
+                    <p>Click this <a href="${url}">link</a> to reset your password.</p>`
+                }
+                const emailResult = await emailService.sendEmail(emailBody);
+                return emailResult;
+            }
+            return null;
+        } catch (error) {
+            return error;
+        }
+    }
+
+    async validateToken(token) {
+        try {
+            const result = verifyTokenResetPassword(token);
+            return result;
+        } catch (error) {
+            return error;
+        }
+    }
+
+    async resetPassword(token, password) {
+        try {
+            const { id } = decodeTokenResetPassword(token);
+            const hashPassword = await hashData(password);
+            const result = await usersMongo.update(id, { password: hashPassword });
+            return result;
         } catch (error) {
             return error;
         }
