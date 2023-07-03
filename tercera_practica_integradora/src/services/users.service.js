@@ -126,7 +126,7 @@ class UsersService {
                     html: `<h1>Reset Password</h1>
                     <p>Click this <a href="${url}">link</a> to reset your password.</p>`
                 }
-                const emailResult = await emailService.sendEmail(emailBody);
+                const emailResult = await emailService.sendEmail(emailBody.to, emailBody.subject, emailBody.html);
                 return emailResult;
             }
             return null;
@@ -144,8 +144,9 @@ class UsersService {
         }
     }
 
-    async resetPassword(token, password) {
+    async resetPassword(data) {
         try {
+            const { token, password } = data;
             const { id } = decodeTokenResetPassword(token);
             const hashPassword = await hashData(password);
             const result = await usersMongo.update(id, { password: hashPassword });
