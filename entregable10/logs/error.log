@@ -1,0 +1,81 @@
+info: Server running on port 8080
+info: Request: [GET] /api/test/loggerTest
+debug: This is a debug message
+http: This is an HTTP message
+info: This is an info message
+error: logger(...).warning is not a function logger(...).warning is not a function {"stack":"TypeError: logger(...).warning is not a function\n    at processRequest (file:///C:/Users/orreg/OneDrive/Desktop/learning/CoderHouse/Practica/entregable9/src/services/logger.service.js:7:14)\n    at handleRequest (file:///C:/Users/orreg/OneDrive/Desktop/learning/CoderHouse/Practica/entregable9/src/controllers/logger.controller.js:6:9)\n    at Layer.handle [as handle_request] (C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\route.js:144:13)\n    at logRequest (file:///C:/Users/orreg/OneDrive/Desktop/learning/CoderHouse/Practica/entregable9/src/middlewares/logger.middleware.js:5:5)\n    at Layer.handle [as handle_request] (C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\route.js:144:13)\n    at Route.dispatch (C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\route.js:114:3)\n    at Layer.handle [as handle_request] (C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\index.js:284:15"}
+info: Request: [GET] /api/test/loggerTest
+debug: This is a debug message
+http: This is an HTTP message
+info: This is an info message
+error: logger(...).warning is not a function logger(...).warning is not a function {"stack":"TypeError: logger(...).warning is not a function\n    at processRequest (file:///C:/Users/orreg/OneDrive/Desktop/learning/CoderHouse/Practica/entregable9/src/services/logger.service.js:7:14)\n    at handleRequest (file:///C:/Users/orreg/OneDrive/Desktop/learning/CoderHouse/Practica/entregable9/src/controllers/logger.controller.js:6:9)\n    at Layer.handle [as handle_request] (C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\route.js:144:13)\n    at logRequest (file:///C:/Users/orreg/OneDrive/Desktop/learning/CoderHouse/Practica/entregable9/src/middlewares/logger.middleware.js:5:5)\n    at Layer.handle [as handle_request] (C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\route.js:144:13)\n    at Route.dispatch (C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\route.js:114:3)\n    at Layer.handle [as handle_request] (C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\index.js:284:15"}
+info: Request: [GET] /api/test/loggerTest
+debug: This is a debug message
+http: This is an HTTP message
+info: This is an info message
+error: logger(...).warning is not a function logger(...).warning is not a function {"stack":"TypeError: logger(...).warning is not a function\n    at processRequest (file:///C:/Users/orreg/OneDrive/Desktop/learning/CoderHouse/Practica/entregable9/src/services/logger.service.js:7:14)\n    at handleRequest (file:///C:/Users/orreg/OneDrive/Desktop/learning/CoderHouse/Practica/entregable9/src/controllers/logger.controller.js:6:9)\n    at Layer.handle [as handle_request] (C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\route.js:144:13)\n    at logRequest (file:///C:/Users/orreg/OneDrive/Desktop/learning/CoderHouse/Practica/entregable9/src/middlewares/logger.middleware.js:5:5)\n    at Layer.handle [as handle_request] (C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\route.js:144:13)\n    at Route.dispatch (C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\route.js:114:3)\n    at Layer.handle [as handle_request] (C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\index.js:284:15"}
+info: Server running on port 8080
+info: Request: [GET] /api/test/loggerTest
+debug: This is a debug message
+http: This is an HTTP message
+info: This is an info message
+error: logger(...).warning is not a function logger(...).warning is not a function {"stack":"TypeError: logger(...).warning is not a function\n    at processRequest (file:///C:/Users/orreg/OneDrive/Desktop/learning/CoderHouse/Practica/entregable9/src/services/logger.service.js:7:14)\n    at handleRequest (file:///C:/Users/orreg/OneDrive/Desktop/learning/CoderHouse/Practica/entregable9/src/controllers/logger.controller.js:6:9)\n    at Layer.handle [as handle_request] (C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\route.js:144:13)\n    at logRequest (file:///C:/Users/orreg/OneDrive/Desktop/learning/CoderHouse/Practica/entregable9/src/middlewares/logger.middleware.js:5:5)\n    at Layer.handle [as handle_request] (C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\route.js:144:13)\n    at Route.dispatch (C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\route.js:114:3)\n    at Layer.handle [as handle_request] (C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at C:\\Users\\orreg\\OneDrive\\Desktop\\learning\\CoderHouse\\Practica\\entregable9\\node_modules\\express\\lib\\router\\index.js:284:15"}
+info: Server running on port 8080
+info: Request: [GET] /api/test/loggerTest
+debug: This is a debug message
+http: This is an HTTP message
+info: This is an info message
+warn: This is a warning message
+error: This is an error message
+info: Request processed successfully
+info: Server running on port 8080
+info: Request: [GET] /api/test/loggerTest
+debug: This is a debug message
+http: This is an HTTP message
+info: This is an info message
+warn: This is a warning message
+error: This is an error message
+info: Request processed successfully
+info: Request: [GET] /api/test/loggerTest
+debug: This is a debug message
+http: This is an HTTP message
+info: This is an info message
+warn: This is a warning message
+error: This is an error message
+info: Request processed successfully
+info: Server running on port 8080
+info: Server running on port 8080
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected

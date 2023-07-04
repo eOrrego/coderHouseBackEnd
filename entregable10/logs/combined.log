@@ -1,0 +1,71 @@
+info: Server running on port 8080
+info: Request: [GET] /api/test/loggerTest
+debug: This is a debug message
+http: This is an HTTP message
+info: This is an info message
+info: Request: [GET] /api/test/loggerTest
+debug: This is a debug message
+http: This is an HTTP message
+info: This is an info message
+info: Request: [GET] /api/test/loggerTest
+debug: This is a debug message
+http: This is an HTTP message
+info: This is an info message
+info: Server running on port 8080
+info: Request: [GET] /api/test/loggerTest
+debug: This is a debug message
+http: This is an HTTP message
+info: This is an info message
+info: Server running on port 8080
+info: Request: [GET] /api/test/loggerTest
+debug: This is a debug message
+http: This is an HTTP message
+info: This is an info message
+info: Request processed successfully
+info: Server running on port 8080
+info: Request: [GET] /api/test/loggerTest
+debug: This is a debug message
+http: This is an HTTP message
+info: This is an info message
+info: Request processed successfully
+info: Request: [GET] /api/test/loggerTest
+debug: This is a debug message
+http: This is an HTTP message
+info: This is an info message
+info: Request processed successfully
+info: Server running on port 8080
+info: Server running on port 8080
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
+info: Server running on port 8080
+info: MongoDB connected
