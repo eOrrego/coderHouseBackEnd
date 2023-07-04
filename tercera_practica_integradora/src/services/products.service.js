@@ -1,5 +1,6 @@
 import productsMongo from '../DAL/DAOs/productsDaos/productsMongo.js'
 import productsMocks from '../utils/mocks.utils.js';
+import { verifyToken } from '../utils/jwt.utils.js';
 
 class ProductsService {
     async findAll() {
@@ -20,19 +21,32 @@ class ProductsService {
         }
     }
 
-    async create(products) {
+    async create(products, token) {
         try {
-            const result = await productsMongo.create(products);
+            //crear un nuevo product con el owner del token y el resto de los datos del body
+            const resultToken = await verifyToken(token);
+            const { email } = resultToken;
+            const result = await productsMongo.create({ ...products, owner: email });
             return result;
+
         } catch (error) {
             return error;
         }
     }
 
-    async update(id, products) {
+    async update(id, products, token) {
         try {
-            const result = await productsMongo.update(id, products);
-            return result;
+            //verificar si el product es del owner del token o si el token es role admin
+            const resultToken = await verifyToken(token);
+            const { role, email } = resultToken;
+            const resultProduct = await productsMongo.findById(id);
+            const { owner } = resultProduct;
+            if (role === 'admin' || email === owner) {
+                const result = await productsMongo.update(id, products);
+                return result;
+            }
+            return null;
+
         } catch (error) {
             return error;
         }

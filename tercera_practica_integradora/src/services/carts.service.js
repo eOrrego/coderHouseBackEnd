@@ -68,7 +68,7 @@ class CartsService {
     }
 
     // agregamos un producto al carrito al carrito, si existe el producto, se suma la cantidad al producto existente en el carrito y se actualiza el carrito en la base de datos
-    async addProduct(cid, pid) {
+    async addProduct(cid, pid, token) {
         try {
             const cart = await cartsMongo.findById(cid);
             if (!cart) {
@@ -78,6 +78,19 @@ class CartsService {
             const pro = await productsMongo.findById(pid);
             if (!pro) {
                 return { error: 'Product not found' };
+            }
+
+            //Usuario no puede agregar sus propios productos al carrito
+
+            const { id } = verifyToken(token);
+            const user = await usersMongo.findById(id);
+            if (!user) {
+                return { error: 'User not found' };
+            }
+
+            const { email } = user;
+            if (email === pro.owner) {
+                return { error: 'User cannot add their own products to the cart' };
             }
 
             const product = cart.products.find(p => p.pid._id.toString() === pid);

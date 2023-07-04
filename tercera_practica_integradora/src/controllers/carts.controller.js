@@ -61,8 +61,9 @@ class CartsController {
 
     async addProductToCart(req, res) {
         try {
+            const tokenCookieUser = req.cookies.token;
             const { cid, pid } = req.params;
-            const result = await cartsService.addProduct(cid, pid);
+            const result = await cartsService.addProduct(cid, pid, tokenCookieUser);
             res.status(200).json(result);
         } catch (error) {
             res.status(400).json(error);

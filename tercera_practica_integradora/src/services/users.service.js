@@ -126,7 +126,7 @@ class UsersService {
                     html: `<h1>Reset Password</h1>
                     <p>Click this <a href="${url}">link</a> to reset your password.</p>`
                 }
-                const emailResult = await emailService.sendEmail(emailBody);
+                const emailResult = await emailService.sendEmail(emailBody.to, emailBody.subject, emailBody.html);
                 return emailResult;
             }
             return null;
@@ -144,12 +144,49 @@ class UsersService {
         }
     }
 
-    async resetPassword(token, password) {
+    async resetPassword(data) {
         try {
+            const { token, password } = data;
+
+            //verificar que el token sea valido y que no haya expirado
+
+            const isValid = verifyTokenResetPassword(token);
+            if (!isValid) {
+                return null;
+            }
+
             const { id } = decodeTokenResetPassword(token);
             const hashPassword = await hashData(password);
+
+            //verificar que la contraseña no sea igual a la anterior
+
+            const user = await usersMongo.findById(id);
+            const { password: hashPasswordOld } = user;
+            const isMatch = await compareData(hashPassword, hashPasswordOld);
+            if (isMatch) {
+                return null;
+            }
             const result = await usersMongo.update(id, { password: hashPassword });
             return result;
+        } catch (error) {
+            return error;
+        }
+    }
+
+    //funcionalidad para cambiar el rol de un usuario de user a premium y viceversa
+
+    async changeRole(id) {
+        try {
+            const result = await usersMongo.findById(id);
+            const { role } = result;
+            let newRole = "";
+            if (role === "user") {
+                newRole = "premium";
+            } else {
+                newRole = "user";
+            }
+            const resultUpdate = await usersMongo.update(id, { role: newRole });
+            return resultUpdate;
         } catch (error) {
             return error;
         }

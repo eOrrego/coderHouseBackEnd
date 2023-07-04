@@ -28,4 +28,6 @@ router.get("/reset-password/:token", usersController.validateResetPasswordToken)
 
 router.post("/reset-password", usersController.resetPasswordUsers);
 
+router.post('/premium/:uid', usersController.premiumUsersRole);
+
 export default router;
