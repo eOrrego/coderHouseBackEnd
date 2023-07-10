@@ -31,8 +31,8 @@ const swaggerOptions = {
     definition: {
         openapi: '3.0.1',
         info: {
-            title: 'Entregable 10',
-            description: 'API para el entregable 10 de la materia de Programación Web Avanzada',
+            title: 'Documentacion API Ecommerce',
+            description: 'Documentacion de la API de Ecommerce',
         },
     },
     apis: [`${__dirname}/docs/**/*.yaml`],
