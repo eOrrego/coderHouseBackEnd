@@ -1,0 +1,214 @@
+paths:
+  /api/products/:
+    get:
+      summary: Obtiene todos los productos
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Los productos fueron obtenidos satisfactoriamente de la base de datos
+          content:
+            aplication/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/Product"
+        "500":
+          description: Error interno del servidor, usualmente generado por una query defectuosa o un fallo de conexion con la base de datos
+    post:
+      summary: Crea un nuevo producto
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/updateProduct"
+      responses:
+        "200":
+          description: Producto creado satisfactoriamente
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/Product"
+        "500":
+          description: Error interno del servidor, usualmente generado por una query defectuosa o un fallo de conexion con la base de datos
+  /api/products/{pid}:
+    get:
+      summary: Obtiene un solo producto a partir de su _id
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: id del producto que se desea solicitar
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Producto encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/Product"
+    put:
+      summary: Actualiza un producto a partir de su Id
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: id del producto que se desea solicitar
+          schema:
+            $type: String
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/updateProduct"
+    delete:
+      summary: Elimina un producto a partir de su Id
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: id del producto que se desea solicitar
+          schema:
+            $type: string
+      responses:
+        "200":
+          description: Producto eliminado
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/Product"
+        "404":
+          description: Producto no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/Product"
+        "500":
+          description: Error interno del servidor, usualmente generado por una query defectuosa o un fallo de conexion con la base de datos
+  /api/products/soft/{pid}:
+    delete:
+      summary: Desactiva un producto a partir de su Id
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: id del producto que se desea solicitar
+          schema:
+            $type: string
+      responses:
+        "200":
+          description: Producto desactivado
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/Product"
+        "404":
+          description: Producto no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/Product"
+        "500":
+          description: Error interno del servidor, usualmente generado por una query defectuosa o un fallo de conexion con la base de datos
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: Objectid
+          description: Id autogenerado de mongo
+        name:
+          type: String
+          description: Nombre del producto
+        description:
+          type: String
+          description: Descripcion del producto
+        thumbnail:
+          type: Array
+          description: fotos del producto
+        code:
+          type: String
+          description: Codigo del producto
+        category:
+          type: String
+          description: Categoria del producto
+        price:
+          type: Number
+          description: Precio del producto
+        stock:
+          type: Number
+          description: Stock del producto
+        owner:
+          type: String
+          description: Owner del producto
+        status:
+          type: String
+          description: Estado del producto
+      example:
+        _id: Objectid("123rasr312434543rf")
+        name: El rayobac
+        description: nuevo producto
+        thumbnail: /foto.png
+        code: ASE123
+        category: nada
+        price: 999
+        stock: 10
+        owner: orregoe@gmail.com
+        status: active
+  requestBodies:
+    updateProduct:
+      type: object
+      properties:
+        name:
+          type: String
+          description: Nombre del producto
+        description:
+          type: String
+          description: Descripcion del producto
+        thumbnail:
+          type: Array
+          description: fotos del producto
+        code:
+          type: String
+          description: Codigo del producto
+        category:
+          type: String
+          description: Categoria del producto
+        price:
+          type: Number
+          description: Precio del producto
+        stock:
+          type: Number
+          description: Stock del producto
+        owner:
+          type: String
+          description: Owner del producto
+        status:
+          type: String
+          description: Estado del producto
+      example:
+        _id: Objectid("123rasr312434543rf")
+        name: El rayobac
+        description: nuevo producto
+        thumbnail: /foto.png
+        code: ASE123
+        category: nada
+        price: 999
+        stock: 10
+        owner: orregoe@gmail.com
+        status: active
