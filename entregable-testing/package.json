@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "nodemon src/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -t 10000 test/*.test.js"
   },
   "keywords": [],
   "author": "",
@@ -28,6 +28,7 @@
     "winston": "^3.9.0"
   },
   "devDependencies": {
+    "chai": "^4.3.7",
     "mocha": "^10.2.0"
   }
 }
