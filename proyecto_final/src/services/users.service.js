@@ -9,7 +9,8 @@ class UsersService {
     async findAll() {
         try {
             const result = await usersMongo.findAll();
-            return result;
+            const usersViewDTO = result.map(users => new UsersViewDTO(users));
+            return usersViewDTO;
         } catch (error) {
             return error;
         }
@@ -64,6 +65,17 @@ class UsersService {
         }
     }
 
+    //Realiza un soft delete de todos los usuarios con lastLogin menor en dos dias a la fecha actual
+
+    async deleteSoftAll() {
+        try {
+            const result = await usersMongo.deleteSoftAll();
+            return result;
+        } catch (error) {
+            return error;
+        }
+    }
+
     async login(users) {
         const { password, email } = users;
         try {
@@ -83,6 +95,8 @@ class UsersService {
                 const isMatch = await compareData(password, hashPassword);
                 if (isMatch) {
                     const token = generateToken(result[0]);
+                    //guardar ultima fecha de login en la base de datos
+                    await usersMongo.update(result[0]._id, { lastLogin: new Date() });
                     return token;
                 }
                 return null;

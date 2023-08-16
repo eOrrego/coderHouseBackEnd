@@ -48,6 +48,10 @@ const usersSchema = new mongoose.Schema({
         type: Date,
         required: false,
     },
+    lastLogin: {
+        type: Date,
+        required: false,
+    },
 }, { timestamps: true });
 
 const usersModel = mongoose.model('Users', usersSchema);

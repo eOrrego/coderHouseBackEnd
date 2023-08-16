@@ -56,6 +56,17 @@ class UsersController {
         }
     }
 
+    //Realiza un soft delete de todos los usuarios con lastLogin menor en dos dias a la fecha actual
+
+    async deleteSoftAllUsers(req, res) {
+        try {
+            const result = await usersService.deleteSoftAll();
+            res.status(200).json(result);
+        } catch (error) {
+            res.status(400).json(error);
+        }
+    }
+
     async loginUsers(req, res) {
         // aqui hay que hacer validaciones de los datos que vienen en el body
         try {

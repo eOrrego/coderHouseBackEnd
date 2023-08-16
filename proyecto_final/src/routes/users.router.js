@@ -1,6 +1,6 @@
 import usersController from "../controllers/users.controller.js";
 import { Router } from "express";
-import { verifyTokenAuth } from "../middlewares/auth.middleware.js";
+import { verifyTokenAuth, verifyTokenAdmin } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
@@ -12,9 +12,13 @@ router.post("/", usersController.createUsers);
 
 router.put("/:id", usersController.updateUsers);
 
-router.delete("/:id", usersController.deleteUsers);
+router.delete("/:id", verifyTokenAdmin, usersController.deleteUsers);
 
-router.delete("/soft/:id", usersController.deleteSoftUsers);
+router.delete("/soft/:id", verifyTokenAdmin, usersController.deleteSoftUsers);
+
+//Realiza un soft delete de todos los usuarios con lastLogin menor en dos dias a la fecha actual
+
+router.patch("/soft", verifyTokenAdmin, usersController.deleteSoftAllUsers);
 
 router.post("/login", usersController.loginUsers);
 
