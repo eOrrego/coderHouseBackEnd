@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "src/app.js",
+    "start": "node src/app.js",
     "dev": "nodemon src/app.js",
     "test": "mocha -t 10000 test/*.test.js"
   },
